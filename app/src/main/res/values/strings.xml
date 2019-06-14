@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">BeWatch</string>
+    <string name="sign_in">Sign in With Google</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="cant_login">Can not log into account?</string>
+</resources>

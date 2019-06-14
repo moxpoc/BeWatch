@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorUltramarin">#5E77EE</color>
+    <color name="colorLight">#1BB2E9</color>
+    <color name="colorLightBlue">#8DD8F4</color>
+    <color name="windowBackground">#E5E5E5</color>
+    <color name="colorPink">#FF5454</color>
+    <color name="colorBuriza">#B21BE9DD</color>
+
+    <color name="gradientStart">#991BE9DD</color>
+    <color name="gradientCenter">#B21BB2E9</color>
+    <color name="gradientEnd">#5E77EE</color>
+</resources>
