@@ -6,4 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/regToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/registration"
+            android:textSize="20sp"/>
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/editTextRegName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorUltramarin"
+        android:text="@string/regName"
+        android:textColor="#CC000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/regToolbar" />
+
+    <EditText
+        android:id="@+id/editTextRegPass"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorUltramarin"
+        android:text="@string/regPass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegName" />
+
+    <EditText
+        android:id="@+id/editTextRegEmail"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorUltramarin"
+        android:text="@string/regEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegPass" />
+
+    <Button
+        android:id="@+id/sign_upRegBtn"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/roundedbutton"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:drawablePadding="-24dp"
+        android:text="@string/sign_up"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegEmail" />
+
+    <TextView
+        android:id="@+id/regQuesAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/alreadyAcc"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_upRegBtn" />
+
+    <Button
+        android:id="@+id/sign_inRegBtn"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ultraroundedbutton"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_white_24dp"
+        android:drawablePadding="-24dp"
+        android:text="@string/sign_in"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regQuesAcc" />
 </android.support.constraint.ConstraintLayout>

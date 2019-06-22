@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">BeWatch</string>
-    <string name="sign_in">Sign in With Google</string>
+    <string name="b_watch">BE Watch</string>
+    <string name="sign_in_google">Sign in With Google</string>
+    <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign Up</string>
     <string name="cant_login">Can not log into account?</string>
+    <string name="alreadyAcc">Already have an account?</string>
+    <string name="registration">Sign UP</string>
+    <string name="regName">Name</string>
+    <string name="regPass">Password</string>
+    <string name="regEmail">E-mail</string>
 </resources>

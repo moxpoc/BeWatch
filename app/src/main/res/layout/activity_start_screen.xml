@@ -6,18 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".StartScreenActivity">
 
+    <TextView
+        android:id="@+id/b_watch"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/b_watch"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/sign_inGoogleBtn"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="60dp"
         android:background="@drawable/roundedbutton"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:drawablePadding="-24dp"
+        android:text="@string/sign_in_google"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/sign_in"/>
+        app:layout_constraintTop_toBottomOf="@+id/b_watch" />
 
     <Button
         android:id="@+id/sign_upBtn"
@@ -27,7 +46,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/roundedbutton"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:drawablePadding="-24dp"
         android:text="@string/sign_up"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_inGoogleBtn" />
@@ -46,19 +68,19 @@
         app:layout_constraintTop_toBottomOf="@+id/sign_upBtn" />
 
     <Button
-        android:id="@+id/sign_ipBtn"
+        android:id="@+id/sign_inBtn"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ultraroundedbutton"
-        android:drawableEnd="@drawable/vector"
-        android:drawablePadding="150dp"
-
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_white_24dp"
+        android:drawablePadding="-24dp"
         android:text="@string/sign_in"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signQuestionText" />
+
 </android.support.constraint.ConstraintLayout>

@@ -19,7 +19,12 @@
         <activity android:name=".VoiceChatActivity" />
         <activity android:name=".MyTargetsActivity" />
         <activity android:name=".StatisticsActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".RegistrationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.GOTOREGISTRATIONACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".StartScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
