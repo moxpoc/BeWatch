@@ -16,7 +16,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onNavigateUp(){
         onBackPressed();
         return true;
     }

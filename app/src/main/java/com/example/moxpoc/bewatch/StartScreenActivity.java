@@ -15,10 +15,20 @@ public class StartScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_screen);
 
         Button signUpBtn = findViewById(R.id.sign_upBtn);
+        Button signInBtn = findViewById(R.id.sign_inBtn);
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartScreenActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        signInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartScreenActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
