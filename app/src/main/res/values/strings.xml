@@ -10,4 +10,9 @@
     <string name="regName">Name</string>
     <string name="regPass">Password</string>
     <string name="regEmail">E-mail</string>
+    <string name="myProfile">My Profile</string>
+    <string name="statistics">Statistics</string>
+    <string name="call">Call</string>
+    <string name="Pulse">Pulse</string>
+    <string name="Steps">Steps</string>
 </resources>

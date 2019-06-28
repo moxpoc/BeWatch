@@ -16,20 +16,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar profileToolbar = findViewById(R.id.profileToolbar);
+        profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
+        final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        return true;
+    }
 
-    @Override
+    /*@Override
     public boolean onPrepareOptionsMenu(Menu menu){
         final MenuItem chargeMenuItem = menu.findItem(R.id.watchChargeItem);
-        FrameLayout rootView = (FrameLayout) chargeMenuItem.getActionView();
+        //FrameLayout rootView = (FrameLayout) chargeMenuItem.getActionView();
         return super.onPrepareOptionsMenu(menu);
-    }
+    }*/
 }

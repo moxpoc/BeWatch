@@ -5,8 +5,8 @@
     <item
         android:id="@+id/watchChargeItem"
         android:title="charge"
-        android:actionLayout="@layout/charge_view"
-        app:showAsAction="always"
+        app:actionLayout="@layout/charge_view"
+        app:showAsAction="ifRoom|withText"
         />
 
 </menu>

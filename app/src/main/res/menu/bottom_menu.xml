@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/statistics_item"
+        android:icon="@drawable/ic_statictics"
+        android:title="@string/statistics"
+        app:showAsAction="withText|ifRoom"
+        />
+    <item
+        android:id="@+id/call_item"
+        android:icon="@drawable/ic_call"
+        android:title="@string/call"
+        app:showAsAction="withText|ifRoom"/>
+    <item
+        android:id="@+id/myProfile_item"
+        android:icon="@drawable/ic_user"
+        android:title="@string/myProfile"
+        app:showAsAction="withText|ifRoom"/>
+</menu>
