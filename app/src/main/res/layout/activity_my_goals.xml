@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyGoalsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/profileToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:navigationIcon="@drawable/ic_settings"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:titleMarginTop="30dp"
+        >
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/goal"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileToolbar" />
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/goalsProgressCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="12dp"
+        android:background="@color/colorLightBlue"
+        android:backgroundTint="@color/colorLightBlue"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/progressConst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/progressTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/progress"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/statProgressBarPedTotal"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:progress="80"
+                android:progressDrawable="@drawable/pedometer_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressTitle" />
+
+            <LinearLayout
+                android:id="@+id/totalLin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/statProgressBarPedTotal"
+                app:layout_constraintEnd_toEndOf="@+id/statProgressBarPedTotal"
+                app:layout_constraintStart_toStartOf="@+id/statProgressBarPedTotal"
+                app:layout_constraintTop_toTopOf="@+id/statProgressBarPedTotal">
+
+                <TextView
+                    android:id="@+id/textTotalSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="4444"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statTextTotalSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/Steps"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/statProgressBarSleep"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:progress="80"
+                android:progressDrawable="@drawable/pedometer_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statProgressBarPedTotal" />
+
+            <LinearLayout
+                android:id="@+id/sleepLin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/statProgressBarSleep"
+                app:layout_constraintEnd_toEndOf="@+id/statProgressBarSleep"
+                app:layout_constraintStart_toStartOf="@+id/statProgressBarSleep"
+                app:layout_constraintTop_toTopOf="@+id/statProgressBarSleep">
+
+                <TextView
+                    android:id="@+id/textTimeSleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="8"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statTextHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="hour"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <ProgressBar
+                android:id="@+id/statProgressBarActivity"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:progress="80"
+                android:progressDrawable="@drawable/pedometer_progress"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statProgressBarSleep" />
+
+            <LinearLayout
+                android:id="@+id/activityLin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/statProgressBarActivity"
+                app:layout_constraintEnd_toEndOf="@+id/statProgressBarActivity"
+                app:layout_constraintStart_toStartOf="@+id/statProgressBarActivity"
+                app:layout_constraintTop_toTopOf="@+id/statProgressBarActivity">
+
+                <TextView
+                    android:id="@+id/textTimeActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="3 hour"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statTextActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Activity"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/goalsGoalCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="12dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="@+id/profileToolbar"
+        app:layout_constraintStart_toEndOf="@+id/goalsProgressCard"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/goalsConst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/goalsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/goal"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/statProgressBarPedGoal"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:progress="80"
+                android:progressDrawable="@drawable/pedometer_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goalsTitle" />
+
+            <LinearLayout
+                android:id="@+id/totalGoalLin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/statProgressBarPedGoal"
+                app:layout_constraintEnd_toEndOf="@+id/statProgressBarPedGoal"
+                app:layout_constraintStart_toStartOf="@+id/statProgressBarPedGoal"
+                app:layout_constraintTop_toTopOf="@+id/statProgressBarPedGoal">
+
+                <TextView
+                    android:id="@+id/textTotalGoalSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="8000"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPink"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statTextTotalGoalSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/Steps"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/statProgressBarGoalSleep"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:progress="80"
+                android:progressDrawable="@drawable/pedometer_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statProgressBarPedGoal" />
+
+            <LinearLayout
+                android:id="@+id/sleepGoalLin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/statProgressBarGoalSleep"
+                app:layout_constraintEnd_toEndOf="@+id/statProgressBarGoalSleep"
+                app:layout_constraintStart_toStartOf="@+id/statProgressBarGoalSleep"
+                app:layout_constraintTop_toTopOf="@+id/statProgressBarGoalSleep">
+
+                <TextView
+                    android:id="@+id/textTimeGoalSleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="9"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPink"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statTextGoalHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="hour"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <ProgressBar
+                android:id="@+id/statProgressBarGoalActivity"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:progress="80"
+                android:progressDrawable="@drawable/pedometer_progress"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statProgressBarGoalSleep" />
+
+            <LinearLayout
+                android:id="@+id/activityGoalLin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/statProgressBarGoalActivity"
+                app:layout_constraintEnd_toEndOf="@+id/statProgressBarGoalActivity"
+                app:layout_constraintStart_toStartOf="@+id/statProgressBarGoalActivity"
+                app:layout_constraintTop_toTopOf="@+id/statProgressBarGoalActivity">
+
+                <TextView
+                    android:id="@+id/textTimeGoalActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="5 hour"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPink"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statTextGoalActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Activity"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/bottom_navigation"
+        app:itemIconTint="@color/bottom_item_colors"
+        app:itemTextColor="@color/bottom_item_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu"></android.support.design.widget.BottomNavigationView>
+
+</android.support.constraint.ConstraintLayout>

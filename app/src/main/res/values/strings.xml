@@ -13,6 +13,16 @@
     <string name="myProfile">My Profile</string>
     <string name="statistics">Statistics</string>
     <string name="call">Call</string>
-    <string name="Pulse">Pulse</string>
+    <string name="pulse">Pulse</string>
+    <string name="beatheart">Beat Heart</string>
     <string name="Steps">Steps</string>
+    <string name="geolocation">Location</string>
+    <string name="voicechat">Voice chat</string>
+    <string name="bloodpressure">Blood pressure</string>
+    <string name="pedometer">Pedometer</string>
+    <string name="calendar">Calendar</string>
+    <string name="oxygen">Oxygen</string>
+    <string name="goal">My Goals</string>
+    <string name="sleep">Sleep</string>
+    <string name="progress">Progress</string>
 </resources>

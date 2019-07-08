@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp"
+        app:navigationIcon="@drawable/ic_settings"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/myProfile"
 
         app:titleMarginTop="30dp"
         >
@@ -21,31 +20,60 @@
 
     </android.support.v7.widget.Toolbar>
 
-
-    <ProgressBar
-        android:id="@+id/progressBarPedometr"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="73dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/progressBarHeartRate"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="80.18dp"
-        android:layout_height="80.18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="95.4dp"
-        android:layout_marginEnd="8dp"
+        android:text="@string/myProfile"
+        android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profileToolbar" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPedometr"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="196dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="97dp"
+        android:progressDrawable="@drawable/pedometer_progress"
+        android:progress="80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+    <ProgressBar
+        android:id="@+id/progressBarHeartRate"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="142dp"
+        android:layout_height="142dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:progress="80"
+        android:progressDrawable="@drawable/test_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBarPedometr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/progressBarPedometr" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:src="@drawable/photo"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBarHeartRate"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarHeartRate"
+        app:layout_constraintStart_toStartOf="@+id/progressBarHeartRate"
+        app:layout_constraintTop_toTopOf="@+id/progressBarHeartRate" />
 
     <TextView
         android:id="@+id/textViewHeartRate"
@@ -54,41 +82,43 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="72"
+        android:textAlignment="center"
         android:textColor="@color/colorPink"
         android:textSize="16sp"
-        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toStartOf="@+id/progressBarPedometr"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPulse" />
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <TextView
         android:id="@+id/textSteps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="123dp"
         android:layout_marginEnd="19dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/Steps"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPedometer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/progressBarPedometr"
-        app:layout_constraintTop_toTopOf="@+id/profileToolbar" />
+        app:layout_constraintStart_toEndOf="@+id/progressBarPedometr" />
 
     <TextView
         android:id="@+id/textPulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="123dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/Pulse"
+        android:layout_marginBottom="8dp"
+        android:text="@string/pulse"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewHeartRate"
         app:layout_constraintEnd_toStartOf="@+id/progressBarPedometr"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profileToolbar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textViewPedometer"
@@ -97,31 +127,371 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="19dp"
+        android:layout_marginBottom="8dp"
         android:text="1350"
         android:textColor="@color/colorBuriza"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/progressBarPedometr"
-        app:layout_constraintTop_toBottomOf="@+id/textSteps" />
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
-    <android.support.v7.widget.CardView
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/windowBackground"
-        android:backgroundTint="@color/windowBackground"
-        android:layout_marginTop="256dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.CardView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarHeartRate">
+
+
+        <GridLayout
+            android:id="@+id/mainGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="4"
+            android:padding="14dp"
+            android:rowCount="2"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarPedometr"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp">
+
+            <!-- ROW 0  -->
+            <!-- COLUMN 1 -->
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/locationCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_placeholder" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/geolocation"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- COLUMN 2  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/pulseCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_pulse" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pulse"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- COLUMN 3  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/pedometerCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_pedometer" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pedometer"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- COLUMN 4  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/calendarCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="0"
+                android:layout_column="3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_calendar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calendar"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- ROW 1  -->
+            <!-- COLUMN 1  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/voicechatCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_voicechat" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/voicechat"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- COLUMN 2  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bpCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_arterial" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bloodpressure"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- COLUMN 3  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/oxygenCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_oxygen" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/oxygen"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!-- COLUMN 4  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goalCard"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_row="1"
+                android:layout_column="3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_goal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/goal"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </GridLayout>
+    </HorizontalScrollView>
 
     <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="66dp"
         android:background="@drawable/bottom_navigation"
-        app:menu="@menu/bottom_menu"
         app:itemIconTint="@color/bottom_item_colors"
         app:itemTextColor="@color/bottom_item_colors"
-        app:layout_constraintBottom_toBottomOf="parent"></android.support.design.widget.BottomNavigationView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu"></android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>

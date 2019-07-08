@@ -5,20 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class VoiceChatActivity extends AppCompatActivity {
+public class MyGoalsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voice_chat);
-
-        Toolbar profileToolbar = findViewById(R.id.profileToolbar);
-        profileToolbar.setTitle("");
-        setSupportActionBar(profileToolbar);
+        setContentView(R.layout.activity_my_goals);
 
         BottomNavigationView bottomMenu = findViewById(R.id.bottomNavigationView);
         bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -26,15 +21,15 @@ public class VoiceChatActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.statistics_item:
-                        Intent intent = new Intent(VoiceChatActivity.this, StatisticsActivity.class);
+                        Intent intent = new Intent(MyGoalsActivity.this, StatisticsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(VoiceChatActivity.this, VoiceChatActivity.class);
+                        Intent intentS = new Intent(MyGoalsActivity.this, VoiceChatActivity.class);
                         startActivity(intentS);
                         break;
                     case R.id.myProfile_item:
-                        Intent intentT = new Intent(VoiceChatActivity.this, MainActivity.class);
+                        Intent intentT = new Intent(MyGoalsActivity.this, MainActivity.class);
                         startActivity(intentT);
                         break;
                 }

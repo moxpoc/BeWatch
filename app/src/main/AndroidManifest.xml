@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".EventActivity"></activity>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".OxygenActivity" />
         <activity android:name=".BloodPressureActivity" />
@@ -17,12 +18,13 @@
         <activity android:name=".PedometerActivity" />
         <activity android:name=".BeatHeartActivity" />
         <activity android:name=".VoiceChatActivity" />
-        <activity android:name=".MyTargetsActivity" />
+        <activity android:name=".MyGoalsActivity" />
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".RegistrationActivity">
             <intent-filter>
-                <action android:name="android.intent.action.GOTOREGISTRATIONACTIVITY"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.GOTOREGISTRATIONACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".StartScreenActivity">
@@ -32,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
