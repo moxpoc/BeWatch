@@ -1,9 +1,7 @@
 package com.example.moxpoc.bewatch;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toolbar;
 
 public class RegistrationActivity extends AppCompatActivity {
 

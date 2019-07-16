@@ -1,13 +1,14 @@
 package com.example.moxpoc.bewatch;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 
 public class StatisticsActivity extends AppCompatActivity {
@@ -20,6 +21,15 @@ public class StatisticsActivity extends AppCompatActivity {
         Toolbar profileToolbar = findViewById(R.id.profileToolbar);
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
+
+        //Событие кнопки назад(настройки)
+        profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StatisticsActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Меняем цвет progressBar со счетчиком шагов
         ProgressBar progressBarPedTotal = findViewById(R.id.statProgressBarPedTotal);

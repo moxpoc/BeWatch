@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/profileToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         >
 
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/textTitle"
@@ -67,7 +67,7 @@
         android:id="@+id/profile_image"
         android:layout_width="86dp"
         android:layout_height="86dp"
-        android:src="@drawable/photo"
+        android:src="@drawable/ic_smart_watch"
         app:civ_border_color="#FFFFFF"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/progressBarHeartRate"
@@ -165,7 +165,7 @@
             <!-- COLUMN 1 -->
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/locationCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -201,11 +201,11 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!-- COLUMN 2  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/pulseCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -241,11 +241,11 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!-- COLUMN 3  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/pedometerCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -281,11 +281,11 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!-- COLUMN 4  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/calendarCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -321,13 +321,13 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
             <!-- ROW 1  -->
             <!-- COLUMN 1  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/voicechatCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -362,11 +362,11 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!-- COLUMN 2  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/bpCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -401,11 +401,11 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!-- COLUMN 3  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/oxygenCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -440,11 +440,11 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <!-- COLUMN 4  -->
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/goalCard"
                 android:layout_width="100dp"
                 android:layout_height="99dp"
@@ -479,12 +479,12 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </GridLayout>
     </HorizontalScrollView>
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="66dp"
@@ -492,6 +492,6 @@
         app:itemIconTint="@color/bottom_item_colors"
         app:itemTextColor="@color/bottom_item_colors"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_menu"></android.support.design.widget.BottomNavigationView>
+        app:menu="@menu/bottom_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
