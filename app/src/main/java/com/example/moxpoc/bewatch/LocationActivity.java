@@ -67,13 +67,11 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         }
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.200.3.172:8080")
+                .baseUrl("http://159.93.167.209:8080")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         BeWatchAPI beWatchAPI = retrofit.create(BeWatchAPI.class);
         final Call<com.example.moxpoc.bewatch.ModelAPI.Location> getLocation = beWatchAPI.getLocation(imei);
-
-
 
 
         //Объявляем тулбар
@@ -135,16 +133,26 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
                             com.example.moxpoc.bewatch.ModelAPI.Location location = response.body();
                             lat = Double.parseDouble(location.getLat());
                             lng = Double.parseDouble(location.getLon());
-                            Toast.makeText(getApplicationContext(),lat + "bbbt" + lng, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"LATITUDE = " + lat + "LONGITUDE" + lng, Toast.LENGTH_LONG).show();
+                            CameraPosition googlePlex = CameraPosition.builder()
+                                    .target(new LatLng(lat,lng))
+                                    .zoom(15)
+                                    .bearing(0)
+                                    .tilt(45)
+                                    .build();
                             myMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(lat,lng))
                                     .title(imei));
+                            myMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2500, null);
+
+
                         }
                     }
 
                     @Override
                     public void onFailure(Call<com.example.moxpoc.bewatch.ModelAPI.Location> call, Throwable t) {
                         Log.i("ЗАФАКАПИЛСЯ ГЕТ ГЕТ ГЕТ", t.getMessage());
+                        Toast.makeText(getApplicationContext(),"DATA ERROR", Toast.LENGTH_LONG).show();
                     }
                 });
             }

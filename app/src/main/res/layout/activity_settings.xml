@@ -80,10 +80,67 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Set up IMEI"
+        android:textColor="@color/colorUltramarin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linSettInfo" />
+
+    <EditText
+        android:id="@+id/editSettSex"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Set up sex"
+        android:textColor="@color/colorUltramarin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettImei" />
+
+    <EditText
+        android:id="@+id/editSettWeight"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Set up weight"
+        android:textColor="@color/colorUltramarin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettSex" />
+
+    <EditText
+        android:id="@+id/editSettHeight"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Set up height"
+        android:textColor="@color/colorUltramarin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettWeight" />
+    <EditText
+        android:id="@+id/editSettAge"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Set up height"
+        android:textColor="@color/colorUltramarin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettHeight" />
+
+    <Button
+        android:id="@+id/savePreferencesBtn"
+        android:layout_width="124dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/two_five_roundedbutton"
+        android:text="Save Settings"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
