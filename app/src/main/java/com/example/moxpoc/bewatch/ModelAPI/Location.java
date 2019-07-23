@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Location {
 
     @JsonIgnore
-    private String id;
+    private Long id;
     private String imei;
     private String type;
     private String lat;
@@ -16,7 +16,7 @@ public class Location {
 
     }
 
-    public Location(String id,String imei, String type, String lat, String lon){
+    public Location(Long id, String imei, String type, String lat, String lon){
         this.id = id;
         this.imei = imei;
         this.type = type;

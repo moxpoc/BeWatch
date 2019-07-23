@@ -67,7 +67,7 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         }
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://159.93.167.209:8080")
+                .baseUrl(getString(R.string.url))
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         BeWatchAPI beWatchAPI = retrofit.create(BeWatchAPI.class);
@@ -144,8 +144,6 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
                                     .position(new LatLng(lat,lng))
                                     .title(imei));
                             myMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2500, null);
-
-
                         }
                     }
 

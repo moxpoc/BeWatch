@@ -1,5 +1,8 @@
 package com.example.moxpoc.bewatch.ModelAPI;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Blood {
 
     private String imei;

@@ -12,8 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.moxpoc.bewatch.ModelAPI.Location;
+import com.example.moxpoc.bewatch.ModelAPI.Watch;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -23,6 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_WEIGHT = "weight";
     public static final String APP_PREFERENCES_HEIGHT = "height";
     public static final String APP_PREFERENCES_AGE = "age";
+    public static final String APP_PREFERENCES_WATCH = "watch";
     //Создаем экземпляр настроек
     SharedPreferences watchSettings;
 
@@ -31,7 +46,14 @@ public class SettingsActivity extends AppCompatActivity {
     EditText editSettWeight;
     EditText editSettHeight;
     EditText editSettAge;
+    EditText editSettName;
+    String json;
+    Watch watch;
 
+    Retrofit retrofit;
+    BeWatchAPI beWatchAPI;
+
+    ObjectMapper mapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +66,44 @@ public class SettingsActivity extends AppCompatActivity {
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.url))
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+        beWatchAPI = retrofit.create(BeWatchAPI.class);
+
+
         Button savePrefBtn = findViewById(R.id.savePreferencesBtn);
         editSettImei = findViewById(R.id.editSettImei);
         editSettSex = findViewById(R.id.editSettSex);
         editSettWeight = findViewById(R.id.editSettWeight);
         editSettHeight = findViewById(R.id.editSettHeight);
         editSettAge = findViewById(R.id.editSettAge);
+        editSettName = findViewById(R.id.editSettName);
 
-        if(watchSettings.contains(APP_PREFERENCES_IMEI)){
+        mapper = new ObjectMapper();
+       /* try{
+            json = fromFile("/data/user/0/com.example.moxpoc.bewatch/files/watch.json");
+            watch = mapper.readValue(json, Watch.class);
+            Toast.makeText(getApplicationContext(), watch.getImei(), Toast.LENGTH_LONG).show();
+        } catch(IOException e){
+            e.printStackTrace();
+        }*/
+
+        if(watchSettings.contains(APP_PREFERENCES_WATCH)){
+            String jsin = watchSettings.getString(APP_PREFERENCES_WATCH,"");
+            try{
+                watch = mapper.readValue(jsin, Watch.class);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            editSettAge.setText(watch.getOwnerBirthday());
+            editSettSex.setText(watch.getOwnerGender());
+            editSettHeight.setText(String.valueOf( watch.getHeight()));
+            editSettWeight.setText(String.valueOf(watch.getWeight()));
+            editSettImei.setText(watch.getImei());
+        }
+        /*if(watchSettings.contains(APP_PREFERENCES_IMEI)){
             editSettImei.setText(watchSettings.getString(APP_PREFERENCES_IMEI,""));
         }
         if(watchSettings.contains(APP_PREFERENCES_SEX)){
@@ -65,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         if(watchSettings.contains(APP_PREFERENCES_AGE)){
             editSettAge.setText(watchSettings.getString(APP_PREFERENCES_AGE,""));
-        }
+        }*/
 
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,15 +157,52 @@ public class SettingsActivity extends AppCompatActivity {
                 String weight = editSettWeight.getText().toString();
                 String height = editSettHeight.getText().toString();
                 String age = editSettAge.getText().toString();
+                watch.setOwnerGender(sex);
+                watch.setHeight(Integer.valueOf(height));
+                watch.setWeight(Integer.valueOf(weight));
+                watch.setOwnerBirthday(age);
+                watch.setName(editSettName.getText().toString());
+                String watchJson = "";
+                try {
+                    watchJson = mapper.writeValueAsString(watch);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 SharedPreferences.Editor editor = watchSettings.edit();
                 editor.putString(APP_PREFERENCES_IMEI, imei);
                 editor.putString(APP_PREFERENCES_SEX, sex);
                 editor.putString(APP_PREFERENCES_WEIGHT, weight);
                 editor.putString(APP_PREFERENCES_HEIGHT, height);
                 editor.putString(APP_PREFERENCES_AGE, age);
+                editor.putString(APP_PREFERENCES_WATCH, watchJson);
                 editor.apply();
+
+
+                final Call<Watch> updateWatch = beWatchAPI.updateWatch(watch);
+                updateWatch.clone().enqueue(new Callback<Watch>() {
+                    @Override
+                    public void onResponse(Call<Watch> call, Response<Watch> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Watch> call, Throwable t) {
+
+                    }
+                });
             }
         });
+    }
+
+    //Метод читает файл квеста
+    public String fromFile(String path) throws IOException {
+        InputStream is = getAssets().open(path);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        return new String(buffer, "UTF-8");
     }
 
     @Override

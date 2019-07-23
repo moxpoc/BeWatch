@@ -20,4 +20,8 @@ public interface BeWatchAPI {
     @Headers("Content-Type: application/json")
     @PUT("/watch")
     Call <Watch> updateWatch(@Body Watch watch);
+
+    @Headers("Content-Type: application/json")
+    @GET("/watch/{imei}")
+    Call <Watch> getWatch(@Path("imei") String imei);
 }

@@ -1,8 +1,14 @@
 package com.example.moxpoc.bewatch.ModelAPI;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Watch {
 
 
+    @JsonIgnore
+    private Long id;
     private String imei;
 
     private String name;
@@ -24,6 +30,8 @@ public class Watch {
     private Location location;
 
     private Blood blood;
+
+    private BeatHeart beatHeart;
 
     public Watch(){
 
