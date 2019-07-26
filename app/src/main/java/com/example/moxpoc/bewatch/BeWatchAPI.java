@@ -1,5 +1,6 @@
 package com.example.moxpoc.bewatch;
 
+import com.example.moxpoc.bewatch.ModelAPI.Blood;
 import com.example.moxpoc.bewatch.ModelAPI.Location;
 import com.example.moxpoc.bewatch.ModelAPI.Watch;
 
@@ -24,4 +25,8 @@ public interface BeWatchAPI {
     @Headers("Content-Type: application/json")
     @GET("/watch/{imei}")
     Call <Watch> getWatch(@Path("imei") String imei);
+
+    @Headers("Content-Type: application/json")
+    @GET("/health/{imei}")
+    Call <Blood> getBlood(@Path("imei") String imei);
 }

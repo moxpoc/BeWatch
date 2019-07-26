@@ -75,7 +75,54 @@
             android:text="166 sm, 66 kg"/>
     </LinearLayout>
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editSettLayout"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:elevation="14dp"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linSettInfo">
+
+        <EditText
+            android:id="@+id/editSettImei"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="IMEI"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textColor="@color/colorUltramarin"
+            android:theme="@style/MyHintText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editSettSexLayout"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="14dp"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettLayout">
+
+        <EditText
+            android:id="@+id/editSettSex"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="Sex"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textColor="@color/colorUltramarin"
+            android:theme="@style/MyHintText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--<EditText
         android:id="@+id/editSettImei"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
@@ -84,9 +131,9 @@
         android:text="Set up IMEI"
         android:textColor="@color/colorUltramarin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linSettInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/linSettInfo" />-->
 
-    <EditText
+    <!--<EditText
         android:id="@+id/editSettSex"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
@@ -95,9 +142,31 @@
         android:text="Set up sex"
         android:textColor="@color/colorUltramarin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettImei" />
+        app:layout_constraintTop_toBottomOf="@+id/editSettLayout" />-->
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editSettWeightLayout"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="14dp"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettSexLayout">
+
+        <EditText
+            android:id="@+id/editSettWeight"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="Weight"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textColor="@color/colorUltramarin"
+            android:theme="@style/MyHintText" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!--<EditText
         android:id="@+id/editSettWeight"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
@@ -106,8 +175,32 @@
         android:text="Set up weight"
         android:textColor="@color/colorUltramarin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettSex" />
+        app:layout_constraintTop_toBottomOf="@+id/editSettSex" />-->
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editSettHeightLayout"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="14dp"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettWeightLayout">
+
+        <EditText
+            android:id="@+id/editSettHeight"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="Height"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textColor="@color/colorUltramarin"
+            android:theme="@style/MyHintText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--
     <EditText
         android:id="@+id/editSettHeight"
         android:layout_width="320dp"
@@ -118,16 +211,41 @@
         android:textColor="@color/colorUltramarin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editSettWeight" />
-    <EditText
+-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editSettAgeLayout"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="14dp"
+        app:hintTextAppearance="@style/MyHintText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSettHeightLayout">
+
+        <EditText
+            android:id="@+id/editSettAge"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="Age"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:textColor="@color/colorUltramarin"
+            android:theme="@style/MyHintText" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!--<EditText
         android:id="@+id/editSettAge"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Set up height"
+        android:text="Set up age"
+        android:inputType="date"
         android:textColor="@color/colorUltramarin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettHeight" />
+        app:layout_constraintTop_toBottomOf="@+id/editSettHeight" />-->
 
     <Button
         android:id="@+id/savePreferencesBtn"

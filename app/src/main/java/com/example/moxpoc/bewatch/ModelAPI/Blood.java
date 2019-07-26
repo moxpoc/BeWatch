@@ -7,6 +7,8 @@ public class Blood {
 
     private String imei;
 
+    private int heartrate;
+
     private int dbp;
 
     private int sbp;
@@ -18,7 +20,7 @@ public class Blood {
     public Blood(String imei, int dbp, int sbp){
         this.imei = imei;
         this.dbp = dbp;
-        this.sbp =sbp;
+        this.sbp = sbp;
     }
 
     public String getImei() {
@@ -43,5 +45,13 @@ public class Blood {
 
     public void setSbp(int sbp) {
         this.sbp = sbp;
+    }
+
+    public int getHeartrate() {
+        return heartrate;
+    }
+
+    public void setHeartrate(int heartrate) {
+        this.heartrate = heartrate;
     }
 }

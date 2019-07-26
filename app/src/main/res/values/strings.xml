@@ -26,5 +26,5 @@
     <string name="goal">My Goals</string>
     <string name="sleep">Sleep</string>
     <string name="progress">Progress</string>
-    <string name="url">http://159.93.167.209:8080</string>
+    <string name="url">http://10.200.3.172:8080</string>
 </resources>
