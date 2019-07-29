@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -38,15 +40,15 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    Retrofit retrofit;
     File file;
+    TextView  pedometerText, pulseText, chargeText;
+    ProgressBar pedometerProgress, pulseProgress;
+
+    ApiImpl api;
+    PreferencesLoad load;
 
     public String imei = "00000000000000";
-    public static final String APP_PREFERENCES = "watchsettings";
-    public static final String APP_PREFERENCES_IMEI = "imei";
-    public static final String APP_PREFERENCES_WATCH = "watch";
-    //Создаем экземпляр настроек
-    SharedPreferences watchSettings;
+    String goalSteps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
 
+        pedometerText = findViewById(R.id.textViewPedometer);
+        pulseText = findViewById(R.id.textViewHeartRate);
+        chargeText = findViewById(R.id.watchChargeText);
+
+        pedometerProgress = findViewById(R.id.progressBarPedometr);
+        pulseProgress = findViewById(R.id.progressBarHeartRate);
+
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,49 +74,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        watchSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if(watchSettings.contains(APP_PREFERENCES_IMEI)){
-            imei = watchSettings.getString(APP_PREFERENCES_IMEI,"");
-        }
 
-        file = new File(getFilesDir(), "watch.json");
+        load = new PreferencesLoad(getApplicationContext());
+        api = new ApiImpl(getApplicationContext());
+        api.getWatch();
+        Watch watch = load.getWatch();
+        goalSteps = load.getGoalSteps();
 
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.url))
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-        BeWatchAPI beWatchAPI = retrofit.create(BeWatchAPI.class);
-        Call<Watch> getWatch = beWatchAPI.getWatch(imei);
-        getWatch.enqueue(new Callback<Watch>() {
-            @Override
-            public void onResponse(Call<Watch> call, Response<Watch> response) {
-                Watch watch =  response.body();
-                Toast.makeText(getApplicationContext(), watch.getLocation().getType(), Toast.LENGTH_LONG).show();
-                ObjectMapper mapper = new ObjectMapper();
-                ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
-                try {
-                    writer.writeValue(file, watch);
-                    Toast.makeText(getApplicationContext(), watch.getImei(), Toast.LENGTH_LONG).show();
-                    String watchJson = mapper.writeValueAsString(watch);
-                    SharedPreferences.Editor editor = watchSettings.edit();
-                    editor.putString(APP_PREFERENCES_WATCH, watchJson);
-                    editor.apply();
-                } catch (JsonMappingException e) {
-                    e.printStackTrace();
-                } catch (JsonGenerationException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Watch> call, Throwable t) {
-                Log.i("__GET_WATCH_FAIL__", t.getMessage());
-            }
-        });
 
         BottomNavigationView bottomMenu = findViewById(R.id.bottomNavigationView);
         bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -130,6 +105,41 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        try {
+            pedometerText.setText(String.valueOf(watch.getBeatHeart().getPedometer()));
+            //Toast.makeText(this,String.valueOf(load.getWatch().getBeatHeart().getPedometer()), Toast.LENGTH_SHORT ).show();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            pulseText.setText(String.valueOf(load.getWatch().getBlood().getHeartrate()));
+            //Toast.makeText(this,String.valueOf(load.getWatch().getBlood().getHeartrate()), Toast.LENGTH_SHORT ).show();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            chargeText.setText(String.valueOf(load.getWatch().getBeatHeart().getBattery()));
+            Toast.makeText(this,String.valueOf(load.getWatch().getBeatHeart().getBattery()), Toast.LENGTH_SHORT ).show();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            Float percent = (float)((load.getWatch().getBeatHeart().getPedometer() * 100)/Integer.parseInt(goalSteps));
+            pedometerProgress.setProgress(Math.round(percent));
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            pulseProgress.setProgress(load.getWatch().getBlood().getHeartrate());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
         //Обработка Перехода в MyGoalsActivity
         CardView locationCard = findViewById(R.id.locationCard);

@@ -11,5 +11,33 @@ public class BeatHeart {
 
     private int pedometer;
 
-    private Watch watch;
+
+    public BeatHeart(){
+
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
+
+    public int getBattery() {
+        return battery;
+    }
+
+    public void setBattery(int battery) {
+        this.battery = battery;
+    }
+
+    public int getPedometer() {
+        return pedometer;
+    }
+
+    public void setPedometer(int pedometer) {
+        this.pedometer = pedometer;
+    }
+
 }

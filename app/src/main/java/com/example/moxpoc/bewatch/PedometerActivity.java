@@ -10,8 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class PedometerActivity extends AppCompatActivity {
+
+    ProgressBar pedometerProgress;
+    TextView totatlSteps;
+    PreferencesLoad load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,12 @@ public class PedometerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        load = new PreferencesLoad(getApplicationContext());
+        pedometerProgress = findViewById(R.id.progressBarPedometrPedometer);
+        totatlSteps = findViewById(R.id.textTotalGoalSteps);
+        pedometerProgress.setProgress(load.getWatch().getBeatHeart().getPedometer());
+        totatlSteps.setText(String.valueOf(load.getWatch().getBeatHeart().getPedometer()));
 
         //Меняем цвет progressBar со счетчиком шагов
         ProgressBar progressBarPedTotal = findViewById(R.id.pedoProgressBarHistory);

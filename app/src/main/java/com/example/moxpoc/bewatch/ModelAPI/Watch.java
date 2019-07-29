@@ -206,4 +206,12 @@ public class Watch {
     public void setBlood(Blood blood) {
         this.blood = blood;
     }
+
+    public BeatHeart getBeatHeart() {
+        return beatHeart;
+    }
+
+    public void setBeatHeart(BeatHeart beatHeart) {
+        this.beatHeart = beatHeart;
+    }
 }

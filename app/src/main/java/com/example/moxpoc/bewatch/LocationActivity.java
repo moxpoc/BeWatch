@@ -48,12 +48,14 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     Retrofit retrofit;
     public double lng;
     public double lat;
+    PreferencesLoad load;
+    ApiImpl api;
     public String imei = "00000000000000";
 
     public static final String APP_PREFERENCES = "watchsettings";
     public static final String APP_PREFERENCES_IMEI = "imei";
     //Создаем экземпляр настроек
-    SharedPreferences watchSettings;
+    //SharedPreferences watchSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +63,12 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         setContentView(R.layout.activity_location);
 
         Button getLocationBtn = findViewById(R.id.getLocation);
-        watchSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if(watchSettings.contains(APP_PREFERENCES_IMEI)){
-            imei = watchSettings.getString(APP_PREFERENCES_IMEI,"");
-        }
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.url))
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-        BeWatchAPI beWatchAPI = retrofit.create(BeWatchAPI.class);
-        final Call<com.example.moxpoc.bewatch.ModelAPI.Location> getLocation = beWatchAPI.getLocation(imei);
+        load = new PreferencesLoad(getApplicationContext());
+        api = new ApiImpl(getApplicationContext());
 
-
+        lat = Double.parseDouble(load.getWatch().getLocation().getLat());
+        lng = Double.parseDouble(load.getWatch().getLocation().getLon());
         //Объявляем тулбар
         Toolbar profileToolbar = findViewById(R.id.profileToolbar);
         profileToolbar.setTitle("");
@@ -125,34 +120,22 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         getLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                getLocation.clone().enqueue(new Callback<com.example.moxpoc.bewatch.ModelAPI.Location>() {
-                    @Override
-                    public void onResponse(Call<com.example.moxpoc.bewatch.ModelAPI.Location> call, Response<com.example.moxpoc.bewatch.ModelAPI.Location> response) {
-                        if(response.isSuccessful()){
-                            com.example.moxpoc.bewatch.ModelAPI.Location location = response.body();
-                            lat = Double.parseDouble(location.getLat());
-                            lng = Double.parseDouble(location.getLon());
-                            Toast.makeText(getApplicationContext(),"LATITUDE = " + lat + "LONGITUDE" + lng, Toast.LENGTH_LONG).show();
-                            CameraPosition googlePlex = CameraPosition.builder()
-                                    .target(new LatLng(lat,lng))
-                                    .zoom(15)
-                                    .bearing(0)
-                                    .tilt(45)
-                                    .build();
-                            myMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(lat,lng))
-                                    .title(imei));
-                            myMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2500, null);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<com.example.moxpoc.bewatch.ModelAPI.Location> call, Throwable t) {
-                        Log.i("ЗАФАКАПИЛСЯ ГЕТ ГЕТ ГЕТ", t.getMessage());
-                        Toast.makeText(getApplicationContext(),"DATA ERROR", Toast.LENGTH_LONG).show();
-                    }
-                });
+                com.example.moxpoc.bewatch.ModelAPI.Location location = api.getLocation();
+                myMap.clear();
+                lat = Double.parseDouble(location.getLat());
+                lng = Double.parseDouble(location.getLon());
+                imei = location.getImei();
+                Toast.makeText(getApplicationContext(),"LATITUDE = " + lat + "LONGITUDE = " + lng, Toast.LENGTH_LONG).show();
+                CameraPosition googlePlex = CameraPosition.builder()
+                        .target(new LatLng(lat,lng))
+                        .zoom(15)
+                        .bearing(0)
+                        .tilt(45)
+                        .build();
+                myMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat,lng))
+                        .title(imei));
+                myMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2500, null);
             }
         });
     }
@@ -171,7 +154,16 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
 
             }
         });
-
+        CameraPosition googlePlex = CameraPosition.builder()
+                .target(new LatLng(lat,lng))
+                .zoom(10)
+                .bearing(0)
+                .tilt(45)
+                .build();
+        myMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat,lng))
+                .title(imei));
+        myMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 2500, null);
         myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         myMap.getUiSettings().setZoomControlsEnabled(true);
 

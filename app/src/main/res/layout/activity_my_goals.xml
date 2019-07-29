@@ -251,7 +251,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="12dp"
-                android:progress="80"
+                android:progress="100"
                 android:progressDrawable="@drawable/pedometer_progress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -268,12 +268,13 @@
                 app:layout_constraintStart_toStartOf="@+id/statProgressBarPedGoal"
                 app:layout_constraintTop_toTopOf="@+id/statProgressBarPedGoal">
 
-                <TextView
+                <EditText
                     android:id="@+id/textTotalGoalSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="8000"
+                    android:background="@android:color/transparent"
                     android:textAlignment="center"
                     android:textColor="@color/colorPink"
                     android:textSize="16sp" />
@@ -295,7 +296,7 @@
                 android:layout_height="128dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:progress="80"
+                android:progress="100"
                 android:progressDrawable="@drawable/pedometer_progress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -313,12 +314,13 @@
                 app:layout_constraintStart_toStartOf="@+id/statProgressBarGoalSleep"
                 app:layout_constraintTop_toTopOf="@+id/statProgressBarGoalSleep">
 
-                <TextView
+                <EditText
                     android:id="@+id/textTimeGoalSleep"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="9"
+                    android:background="@android:color/transparent"
                     android:textAlignment="center"
                     android:textColor="@color/colorPink"
                     android:textSize="16sp" />
@@ -342,7 +344,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="12dp"
-                android:progress="80"
+                android:progress="100"
                 android:progressDrawable="@drawable/pedometer_progress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -361,12 +363,13 @@
                 app:layout_constraintStart_toStartOf="@+id/statProgressBarGoalActivity"
                 app:layout_constraintTop_toTopOf="@+id/statProgressBarGoalActivity">
 
-                <TextView
+                <EditText
                     android:id="@+id/textTimeGoalActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="5 hour"
+                    android:background="@android:color/transparent"
                     android:textAlignment="center"
                     android:textColor="@color/colorPink"
                     android:textSize="16sp" />

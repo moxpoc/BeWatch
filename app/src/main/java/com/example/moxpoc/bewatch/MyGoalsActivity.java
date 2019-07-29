@@ -10,18 +10,31 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class MyGoalsActivity extends AppCompatActivity {
+
+    EditText goalSteps, goalDream, goalActivity;
+    PreferencesLoad load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_goals);
+        load = new PreferencesLoad(getApplicationContext());
 
         //Объявляем тулбар
         Toolbar profileToolbar = findViewById(R.id.profileToolbar);
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
+
+        goalSteps = findViewById(R.id.textTotalGoalSteps);
+        goalDream = findViewById(R.id.textTimeGoalSleep);
+        goalActivity = findViewById(R.id.textTimeGoalActivity);
+
+        goalSteps.setText(load.getGoalSteps());
+        goalDream.setText(load.getGoalDream());
+        goalActivity.setText(load.getGoalActivity());
 
         //Событие кнопки назад(настройки)
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -60,5 +73,20 @@ public class MyGoalsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
         return true;
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        String steps = goalSteps.getText().toString();
+        String dream = goalDream.getText().toString();
+        String activity = goalActivity.getText().toString();
+        load.setGoalSteps(steps);
+        load.setGoalDream(dream);
+        load.setGoalActivity(activity);
+        /*
+        SharedPreferences.Editor editor = watchSettings.edit();
+        editor.putString(APP_PREFERENCES_IMEI, imei);
+        editor.apply();*/
     }
 }
