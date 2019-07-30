@@ -76,6 +76,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/sbp_dbp_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="122/81"
@@ -202,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="12dp"
-                    android:text="@string/sleep"
+                    android:text="@string/pulse"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -373,7 +374,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
-                    android:text="@string/oxygen"
+                    android:text="@string/Steps"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

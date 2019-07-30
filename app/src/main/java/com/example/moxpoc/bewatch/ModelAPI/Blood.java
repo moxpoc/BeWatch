@@ -13,6 +13,10 @@ public class Blood {
 
     private int sbp;
 
+    private String oxygen;
+
+    private String sugar;
+
     public Blood(){
 
     }
@@ -45,6 +49,22 @@ public class Blood {
 
     public void setSbp(int sbp) {
         this.sbp = sbp;
+    }
+
+    public String getOxygen() {
+        return oxygen;
+    }
+
+    public void setOxygen(String oxygen) {
+        this.oxygen = oxygen;
+    }
+
+    public String getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(String sugar) {
+        this.sugar = sugar;
     }
 
     public int getHeartrate() {

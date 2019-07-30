@@ -22,6 +22,7 @@ public class PreferencesLoad {
     public static final String APP_PREFERENCES_GOAL_STEPS = "goalsteps";
     public static final String APP_PREFERENCES_GOAL_DREAM = "goaldream";
     public static final String APP_PREFERENCES_GOAL_ACTIVITY = "goalactivity";
+    public static final String APP_PREFERENCES_IMAGE_PATH = "image";
     private SharedPreferences watchSettings;
     private static Watch watch;
     private ObjectMapper mapper = new ObjectMapper();
@@ -112,5 +113,20 @@ public class PreferencesLoad {
     public void updateBeatHeart(BeatHeart beatHeart){
         watch.setBeatHeart(beatHeart);
         setWatch(watch);
+    }
+
+    public String getImagePath(){
+        String path = "©";
+        if(watchSettings.contains(APP_PREFERENCES_IMAGE_PATH)) {
+            path = watchSettings.getString(APP_PREFERENCES_IMAGE_PATH, "");
+
+        }
+        return path;
+    }
+
+    public void setImagePath(String path){
+        SharedPreferences.Editor editor = watchSettings.edit();
+        editor.putString(APP_PREFERENCES_IMAGE_PATH, path);
+        editor.apply();
     }
 }

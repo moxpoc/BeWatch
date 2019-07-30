@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +36,11 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class BeatHeartActivity extends AppCompatActivity {
 
-    TextView heartRateText;
+    TextView heartRateText, chargeText;
     Retrofit retrofit;
     Watch watch;
     ObjectMapper mapper;
+    PreferencesLoad load;
 
     public String imei = "00000000000000";
     public static final String APP_PREFERENCES = "watchsettings";
@@ -142,6 +144,9 @@ public class BeatHeartActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
         return true;
     }
 }

@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         pedometerText = findViewById(R.id.textViewPedometer);
         pulseText = findViewById(R.id.textViewHeartRate);
-        chargeText = findViewById(R.id.watchChargeText);
 
         pedometerProgress = findViewById(R.id.progressBarPedometr);
         pulseProgress = findViewById(R.id.progressBarHeartRate);
@@ -118,12 +118,14 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            chargeText.setText(String.valueOf(load.getWatch().getBeatHeart().getBattery()));
+            //chargeText.setText(String.valueOf(load.getWatch().getBeatHeart().getBattery()));
             Toast.makeText(this,String.valueOf(load.getWatch().getBeatHeart().getBattery()), Toast.LENGTH_SHORT ).show();
         }catch (NullPointerException e){
             e.printStackTrace();
         }
         try {
+            int max = Integer.parseInt(goalSteps);
+            int current = load.getWatch().getBeatHeart().getPedometer();
             Float percent = (float)((load.getWatch().getBeatHeart().getPedometer() * 100)/Integer.parseInt(goalSteps));
             pedometerProgress.setProgress(Math.round(percent));
         }catch (NullPointerException e){
@@ -201,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Обработка Перехода в OxygenActivity
+        //Обработка Перехода в PedometerActivity
         CardView pedometerCard = findViewById(R.id.pedometerCard);
         pedometerCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,7 +218,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(intent);
+                //startActivity(intent);
+                Toast.makeText(MainActivity.this, getApplicationContext().getString(R.string.soon),Toast.LENGTH_SHORT).show();
             }
         });
        /* ProgressBar progressBar = findViewById(R.id.progressBarPedometr);
@@ -226,15 +229,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
-        final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
         return true;
     }
 
 
-    /*@Override
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu){
-        final MenuItem chargeMenuItem = menu.findItem(R.id.watchChargeItem);
-        //FrameLayout rootView = (FrameLayout) chargeMenuItem.getActionView();
+        final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
         return super.onPrepareOptionsMenu(menu);
-    }*/
+    }
 }

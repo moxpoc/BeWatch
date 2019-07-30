@@ -2,6 +2,8 @@ package com.example.moxpoc.bewatch;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
+
+import com.example.moxpoc.bewatch.ModelAPI.Watch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +11,16 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class StatisticsActivity extends AppCompatActivity {
+
+    TextView chargeText, sdpDbpText, statPulseText, statOxygenText, textTotalSteps;
+    PreferencesLoad load;
+    Watch watch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +30,13 @@ public class StatisticsActivity extends AppCompatActivity {
         Toolbar profileToolbar = findViewById(R.id.profileToolbar);
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
+
+        load = new PreferencesLoad(getApplicationContext());
+        sdpDbpText = findViewById(R.id.sbp_dbp_text);
+        statPulseText = findViewById(R.id.textStatBp);
+        statOxygenText = findViewById(R.id.textStatOxygen);
+        textTotalSteps = findViewById(R.id.textTotalSteps);
+        watch = load.getWatch();
 
         //Событие кнопки назад(настройки)
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -59,12 +75,20 @@ public class StatisticsActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        sdpDbpText.setText(watch.getBlood().getSbp() + "/" + watch.getBlood().getDbp());
+        statPulseText.setText(String.valueOf(watch.getBlood().getHeartrate()));
+        statOxygenText.setText(watch.getBlood().getOxygen());
+        textTotalSteps.setText(String.valueOf(watch.getBeatHeart().getPedometer()));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
         return true;
     }
 
