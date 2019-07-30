@@ -84,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
         textSettHeight = findViewById(R.id.textSettHeight);
 
         load = new PreferencesLoad(getApplicationContext());
+        api = new ApiImpl(getApplicationContext());
         watch = load.getWatch();
             editSettAge.setText(watch.getOwnerBirthday());
             editSettSex.setText(watch.getOwnerGender());
@@ -139,7 +140,9 @@ public class SettingsActivity extends AppCompatActivity {
                 watch.setWeight(Integer.valueOf(weight));
                 watch.setOwnerBirthday(age);
                 watch.setName(editSettName.getText().toString());
+                watch.setImei(imei);
                 load.setWatch(watch);
+                api.updateWatch();
 
             }
         });
@@ -188,7 +191,11 @@ public class SettingsActivity extends AppCompatActivity {
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
         FrameLayout rootView = (FrameLayout)item.getActionView();
         chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
-        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return true;
     }
 }

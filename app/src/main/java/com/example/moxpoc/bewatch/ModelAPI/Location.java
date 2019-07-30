@@ -9,8 +9,8 @@ public class Location {
     private Long id;
     private String imei;
     private String type;
-    private String lat;
-    private String lon;
+    private String lat = "0";
+    private String lon = "0";
 
     public Location(){
 

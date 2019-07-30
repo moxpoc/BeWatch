@@ -36,7 +36,12 @@ public class ApiImpl {
                 .build();
         beWatchAPI = retrofit.create(BeWatchAPI.class);
         load = new PreferencesLoad(context);
-        imei = load.getWatch().getImei();
+        try {
+            imei = load.getWatch().getImei();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            imei = "0000000000000000";
+        }
     }
 
     public void getWatch(){

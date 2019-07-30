@@ -126,7 +126,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             int max = Integer.parseInt(goalSteps);
             int current = load.getWatch().getBeatHeart().getPedometer();
-            Float percent = (float)((load.getWatch().getBeatHeart().getPedometer() * 100)/Integer.parseInt(goalSteps));
+            Float percent = (float)0;
+            try {
+                percent = (float) ((load.getWatch().getBeatHeart().getPedometer() * 100) / Integer.parseInt(goalSteps));
+            }catch (ArithmeticException e) {
+                e.printStackTrace();
+            }
+
             pedometerProgress.setProgress(Math.round(percent));
         }catch (NullPointerException e){
             e.printStackTrace();
@@ -241,7 +247,11 @@ public class MainActivity extends AppCompatActivity {
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
         FrameLayout rootView = (FrameLayout)item.getActionView();
         chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
-        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 }

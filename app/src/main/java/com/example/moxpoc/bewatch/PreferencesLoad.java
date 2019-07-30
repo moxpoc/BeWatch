@@ -29,6 +29,7 @@ public class PreferencesLoad {
 
     public PreferencesLoad(Context context){
         watchSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        watch = new Watch();
     }
 
     public String getGoalSteps(){

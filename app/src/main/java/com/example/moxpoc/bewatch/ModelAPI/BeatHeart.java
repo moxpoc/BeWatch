@@ -7,9 +7,9 @@ public class BeatHeart {
 
     private String imei;
 
-    private int battery;
+    private int battery = 0;
 
-    private int pedometer;
+    private int pedometer = 0;
 
 
     public BeatHeart(){

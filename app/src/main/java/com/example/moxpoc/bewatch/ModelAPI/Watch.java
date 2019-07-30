@@ -18,8 +18,8 @@ public class Watch {
     private int bpThresholdLow;
     private String deviceMobileNo;
     private String fallingAlarm;
-    private int height;
-    private int weight;
+    private int height = 0;
+    private int weight = 0;
     private int hrmTresholdHigh;
     private int hrmTresholdLow;
     private String ownerBirthday;

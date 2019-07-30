@@ -7,11 +7,11 @@ public class Blood {
 
     private String imei;
 
-    private int heartrate;
+    private int heartrate = 0;
 
-    private int dbp;
+    private int dbp =0;
 
-    private int sbp;
+    private int sbp =0;
 
     private String oxygen;
 

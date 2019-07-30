@@ -146,7 +146,11 @@ public class BeatHeartActivity extends AppCompatActivity {
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
         FrameLayout rootView = (FrameLayout)item.getActionView();
         chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
-        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return true;
     }
 }
