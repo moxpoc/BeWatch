@@ -6,9 +6,6 @@ import androidx.annotation.NonNull;
 
 import com.example.moxpoc.bewatch.ModelAPI.Blood;
 import com.example.moxpoc.bewatch.ModelAPI.Watch;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,13 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class BeatHeartActivity extends AppCompatActivity {
 
@@ -41,6 +32,7 @@ public class BeatHeartActivity extends AppCompatActivity {
     Watch watch;
     ObjectMapper mapper;
     PreferencesLoad load;
+    ApiImpl api;
 
     public String imei = "00000000000000";
     public static final String APP_PREFERENCES = "watchsettings";
@@ -60,9 +52,9 @@ public class BeatHeartActivity extends AppCompatActivity {
 
         watchSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         heartRateText = findViewById(R.id.textPulse);
-        mapper  = new ObjectMapper();
+        //mapper  = new ObjectMapper();
 
-        if(watchSettings.contains(APP_PREFERENCES_WATCH)){
+        /*if(watchSettings.contains(APP_PREFERENCES_WATCH)){
             String jsin = watchSettings.getString(APP_PREFERENCES_WATCH,"");
             try{
                 watch = mapper.readValue(jsin, Watch.class);
@@ -70,8 +62,15 @@ public class BeatHeartActivity extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }*/
+        load = new PreferencesLoad(getApplicationContext());
+        api = new ApiImpl(getApplicationContext());
+        api.getBlood();
+        try {
+            heartRateText.setText(String.valueOf(load.getWatch().getBlood().getHeartrate()));
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
-
         //Событие кнопки назад(настройки)
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +104,7 @@ public class BeatHeartActivity extends AppCompatActivity {
         });
 
 
-        retrofit = new Retrofit.Builder()
+        /*retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.url))
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
@@ -137,7 +136,7 @@ public class BeatHeartActivity extends AppCompatActivity {
             public void onFailure(Call<Blood> call, Throwable t) {
                 Log.i("__GET_WATCH_FAIL__", t.getMessage());
             }
-        });
+        });*/
     }
 
     @Override

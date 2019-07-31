@@ -9,8 +9,16 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 public class BloodPressureActivity extends AppCompatActivity {
+
+    TextView chargeText, bpText;
+    PreferencesLoad load;
+    Button startBp;
+    ApiImpl api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +29,8 @@ public class BloodPressureActivity extends AppCompatActivity {
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
 
+        bpText = findViewById(R.id.bpTextBP);
+        startBp = findViewById(R.id.startBp);
         //Событие кнопки назад(настройки)
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +40,20 @@ public class BloodPressureActivity extends AppCompatActivity {
             }
         });
 
+        load = new PreferencesLoad(getApplicationContext());
+        api = new ApiImpl(getApplicationContext());
+        startBp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                api.getBlood();
+            }
+        });
+
+        try {
+            bpText.setText(load.getWatch().getBlood().getSbp() + "/" + load.getWatch().getBlood().getDbp());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         //Нижнее меню, навигация
         BottomNavigationView bottomMenu = findViewById(R.id.bottomNavigationView);
         bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,6 +82,13 @@ public class BloodPressureActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return true;
     }
 }

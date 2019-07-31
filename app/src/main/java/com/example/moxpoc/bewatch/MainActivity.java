@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     File file;
     TextView  pedometerText, pulseText, chargeText;
     ProgressBar pedometerProgress, pulseProgress;
+    CircleImageView profileImage;
 
     ApiImpl api;
     PreferencesLoad load;
@@ -63,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         pedometerText = findViewById(R.id.textViewPedometer);
         pulseText = findViewById(R.id.textViewHeartRate);
 
+        profileImage = findViewById(R.id.profile_image);
+
         pedometerProgress = findViewById(R.id.progressBarPedometr);
         pulseProgress = findViewById(R.id.progressBarHeartRate);
 
@@ -81,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
         Watch watch = load.getWatch();
         goalSteps = load.getGoalSteps();
 
-
+        if(!load.getImagePath().contains("©"))
+            profileImage.setImageBitmap(BitmapFactory.decodeFile(load.getImagePath()));
 
 
         BottomNavigationView bottomMenu = findViewById(R.id.bottomNavigationView);

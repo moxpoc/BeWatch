@@ -79,7 +79,12 @@ public class StatisticsActivity extends AppCompatActivity {
         sdpDbpText.setText(watch.getBlood().getSbp() + "/" + watch.getBlood().getDbp());
         statPulseText.setText(String.valueOf(watch.getBlood().getHeartrate()));
         statOxygenText.setText(watch.getBlood().getOxygen());
-        textTotalSteps.setText(String.valueOf(watch.getBeatHeart().getPedometer()));
+        try{
+            textTotalSteps.setText(String.valueOf(watch.getBeatHeart().getPedometer()));
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -88,7 +93,11 @@ public class StatisticsActivity extends AppCompatActivity {
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
         FrameLayout rootView = (FrameLayout)item.getActionView();
         chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
-        chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return true;
     }
 

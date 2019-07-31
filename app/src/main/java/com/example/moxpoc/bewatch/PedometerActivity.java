@@ -39,8 +39,12 @@ public class PedometerActivity extends AppCompatActivity {
         load = new PreferencesLoad(getApplicationContext());
         pedometerProgress = findViewById(R.id.progressBarPedometrPedometer);
         totatlSteps = findViewById(R.id.textTotalGoalSteps);
-        pedometerProgress.setProgress(load.getWatch().getBeatHeart().getPedometer());
-        totatlSteps.setText(String.valueOf(load.getWatch().getBeatHeart().getPedometer()));
+        try {
+            pedometerProgress.setProgress(load.getWatch().getBeatHeart().getPedometer());
+            totatlSteps.setText(String.valueOf(load.getWatch().getBeatHeart().getPedometer()));
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         //Меняем цвет progressBar со счетчиком шагов
         ProgressBar progressBarPedTotal = findViewById(R.id.pedoProgressBarHistory);

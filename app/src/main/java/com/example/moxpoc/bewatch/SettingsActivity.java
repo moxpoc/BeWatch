@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "watchsettings";
     public static final String APP_PREFERENCES_IMEI = "imei"; // imei
     public static final String APP_PREFERENCES_WATCH = "watch";
+    private static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE = 100;
     //Создаем экземпляр настроек
     //SharedPreferences watchSettings;
 
@@ -88,13 +93,14 @@ public class SettingsActivity extends AppCompatActivity {
         watch = load.getWatch();
             editSettAge.setText(watch.getOwnerBirthday());
             editSettSex.setText(watch.getOwnerGender());
+            editSettName.setText(watch.getName());
             editSettHeight.setText(String.valueOf( watch.getHeight()));
             editSettWeight.setText(String.valueOf(watch.getWeight()));
             editSettImei.setText(watch.getImei());
             textSettAge.setText(watch.getOwnerBirthday() + " years");
             textSettHeight.setText(watch.getHeight() + " sm, " + watch.getWeight() + " kg");
             if(!load.getImagePath().contains("©"))
-                profileImage.setImageURI(Uri.fromFile(new File(load.getImagePath())));
+                profileImage.setImageBitmap(BitmapFactory.decodeFile(load.getImagePath()));
         //}
 
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -160,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+/*
         switch(requestCode){
             case pick_image:
                 if(resultCode == RESULT_OK){
@@ -174,6 +180,23 @@ public class SettingsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+        }*/
+        if (requestCode == pick_image && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            //ImageView imageView = (ImageView) findViewById(R.id.imgView);
+            profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            load.setImagePath(picturePath);
+
         }
     }
 
@@ -197,5 +220,41 @@ public class SettingsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return true;
+    }
+
+    private boolean askPermission(int requestId, String permissionName) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+
+            // Check if we have permission
+            int permission = ActivityCompat.checkSelfPermission(this, permissionName);
+
+
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // If don't have permission so prompt the user.
+                this.requestPermissions(
+                        new String[]{permissionName},
+                        requestId
+                );
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //
+        // Note: If request is cancelled, the result arrays are empty.
+        if (grantResults.length > 0) {
+            switch (requestCode) {
+                case REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE: {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Permission Cancelled!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

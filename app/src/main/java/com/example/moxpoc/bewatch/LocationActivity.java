@@ -29,9 +29,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -45,9 +48,9 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     private GoogleMap myMap;
     private static final String MYTAG = "MYTAG";
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
-    Retrofit retrofit;
     public double lng;
     public double lat;
+    TextView chargeText;
     PreferencesLoad load;
     ApiImpl api;
     public String imei = "00000000000000";
@@ -328,5 +331,28 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        return true;
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 }
