@@ -22,12 +22,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,8 +72,12 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
 
-        lat = Double.parseDouble(load.getWatch().getLocation().getLat());
-        lng = Double.parseDouble(load.getWatch().getLocation().getLon());
+        try {
+            lat = Double.parseDouble(load.getWatch().getLocation().getLat());
+            lng = Double.parseDouble(load.getWatch().getLocation().getLon());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         //Объявляем тулбар
         Toolbar profileToolbar = findViewById(R.id.profileToolbar);
         profileToolbar.setTitle("");
@@ -96,8 +102,13 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(LocationActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        String phoneNo = load.getWatch().getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(LocationActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(LocationActivity.this, MainActivity.class);
@@ -125,8 +136,12 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
             public void onClick(View v) {
                 com.example.moxpoc.bewatch.ModelAPI.Location location = api.getLocation();
                 myMap.clear();
-                lat = Double.parseDouble(location.getLat());
-                lng = Double.parseDouble(location.getLon());
+                try {
+                    lat = Double.parseDouble(location.getLat());
+                    lng = Double.parseDouble(location.getLon());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
                 imei = location.getImei();
                 Toast.makeText(getApplicationContext(),"LATITUDE = " + lat + "LONGITUDE = " + lng, Toast.LENGTH_LONG).show();
                 CameraPosition googlePlex = CameraPosition.builder()

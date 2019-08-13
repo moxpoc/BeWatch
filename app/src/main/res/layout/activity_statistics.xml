@@ -387,8 +387,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="12dp"
+                    android:max="100"
                     android:progress="80"
-                    android:progressDrawable="@drawable/pedometer_progress"
+                    android:progressDrawable="@drawable/right_progress_pedo"
+                    android:background="@drawable/background_pedo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/statPedometerTextView" />
@@ -401,8 +403,10 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="12dp"
+                    android:max="100"
                     android:progress="80"
-                    android:progressDrawable="@drawable/pedometer_progress"
+                    android:progressDrawable="@drawable/right_progress_pulse"
+                    android:background="@drawable/background_pulse"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/statPedometerTextView" />

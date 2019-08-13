@@ -46,8 +46,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
+    <TextView
+        android:id="@+id/oxygenText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="0"
+        android:textSize="94sp"
+        app:layout_constraintBottom_toBottomOf="@+id/oxygen_bg"
+        app:layout_constraintEnd_toEndOf="@+id/oxygen_bg"
+        app:layout_constraintStart_toStartOf="@+id/oxygen_bg"
+        app:layout_constraintTop_toTopOf="@+id/oxygen_bg" />
+
     <Button
-        android:id="@+id/startBp"
+        android:id="@+id/startOxy"
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -55,7 +67,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/two_five_roundedbutton"
-        android:text="Start"
+        android:text="@string/updateData"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

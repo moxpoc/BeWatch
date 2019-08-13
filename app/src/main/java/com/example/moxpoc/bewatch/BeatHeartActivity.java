@@ -12,9 +12,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,7 +67,11 @@ public class BeatHeartActivity extends AppCompatActivity {
         }*/
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
-        api.getBlood();
+        try {
+            api.getBlood();//ошибка
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         try {
             heartRateText.setText(String.valueOf(load.getWatch().getBlood().getHeartrate()));
         }catch (NullPointerException e){
@@ -91,8 +97,15 @@ public class BeatHeartActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(BeatHeartActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        /*Intent intentS = new Intent(BeatHeartActivity.this, VoiceChatActivity.class);
+                        startActivity(intentS);*/
+                        String phoneNo = watch.getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(BeatHeartActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(BeatHeartActivity.this, MainActivity.class);

@@ -6,18 +6,23 @@ import androidx.annotation.NonNull;
 import com.example.moxpoc.bewatch.ModelAPI.Watch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StatisticsActivity extends AppCompatActivity {
 
-    TextView chargeText, sdpDbpText, statPulseText, statOxygenText, textTotalSteps;
+    TextView chargeText, sdpDbpText, statPulseText, statOxygenText, textTotalSteps, textEnergy;
     PreferencesLoad load;
     Watch watch;
 
@@ -36,7 +41,10 @@ public class StatisticsActivity extends AppCompatActivity {
         statPulseText = findViewById(R.id.textStatBp);
         statOxygenText = findViewById(R.id.textStatOxygen);
         textTotalSteps = findViewById(R.id.textTotalSteps);
+        textEnergy = findViewById(R.id.textEnergy);
         watch = load.getWatch();
+
+        String goalSteps = load.getGoalSteps();
 
         //Событие кнопки назад(настройки)
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -48,11 +56,39 @@ public class StatisticsActivity extends AppCompatActivity {
         });
 
         //Меняем цвет progressBar со счетчиком шагов
-        ProgressBar progressBarPedTotal = findViewById(R.id.statProgressBarPedTotal);
-        progressBarPedTotal.setProgressDrawable(getDrawable(R.drawable.total_ped_circle));
+        ProgressBar progressBarPedStatic = findViewById(R.id.statProgressBarPedStatic);
+        progressBarPedStatic.setProgressDrawable(getDrawable(R.drawable.total_ped_circle));
         //Меняем цвет progressBar со счетчиком килокалорий
         ProgressBar progressBarPedEnergy = findViewById(R.id.statProgressBarPedEnergy);
-        progressBarPedEnergy.setProgressDrawable(getDrawable(R.drawable.test_circle));
+        /*progressBarPedEnergy.setProgressDrawable(getDrawable(R.drawable.test_circle));*/
+
+        ProgressBar progressBarPedTotal = findViewById(R.id.statProgressBarPedTotal);
+
+        try {
+            Float percent = (float)0;
+            try {
+                percent = (float) ((watch.getBeatHeart().getPedometer() * 100) / Integer.parseInt(goalSteps));
+            }catch (ArithmeticException e) {
+                e.printStackTrace();
+            }
+
+            progressBarPedTotal.setProgress(Math.round(percent));
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        try {
+            Float percent = (float)0;
+            try {
+                percent = (float) ((Kkal(watch.getWeight(), watch.getHeight(), watch.getBeatHeart().getPedometer()) * 100) / KkalGoal(watch.getWeight(), watch.getHeight(), Integer.parseInt(watch.getOwnerBirthday())));
+            }catch (ArithmeticException e) {
+                e.printStackTrace();
+            }
+            progressBarPedEnergy.setProgress(Math.round(percent));
+            textEnergy.setText(String.valueOf(Kkal(watch.getWeight(), watch.getHeight(), watch.getBeatHeart().getPedometer())));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         BottomNavigationView bottomMenu = findViewById(R.id.bottomNavigationView);
         bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,8 +100,13 @@ public class StatisticsActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(StatisticsActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        String phoneNo = load.getWatch().getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(StatisticsActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(StatisticsActivity.this, MainActivity.class);
@@ -75,11 +116,10 @@ public class StatisticsActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        sdpDbpText.setText(watch.getBlood().getSbp() + "/" + watch.getBlood().getDbp());
-        statPulseText.setText(String.valueOf(watch.getBlood().getHeartrate()));
-        statOxygenText.setText(watch.getBlood().getOxygen());
         try{
+            sdpDbpText.setText(watch.getBlood().getSbp() + "/" + watch.getBlood().getDbp());
+            statPulseText.setText(String.valueOf(watch.getBlood().getHeartrate()));
+            statOxygenText.setText(watch.getBlood().getOxygen());
             textTotalSteps.setText(String.valueOf(watch.getBeatHeart().getPedometer()));
         } catch (NullPointerException e){
             e.printStackTrace();
@@ -101,5 +141,14 @@ public class StatisticsActivity extends AppCompatActivity {
         return true;
     }
 
+    private int Kkal(int weight, int height, int steps){
+        int S = (height / 4) + 37;
+        int Q = weight * steps * S / 100000;
+        return Q;
+    }
 
+    private int KkalGoal(int weight, int height, int age){
+        double kkal =  (10 * weight + 6.25 * height - 5 * age -161) * 1.2;
+        return (int)kkal;
+    }
 }

@@ -4,14 +4,19 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BloodPressureActivity extends AppCompatActivity {
 
@@ -46,6 +51,11 @@ public class BloodPressureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 api.getBlood();
+                try {
+                    bpText.setText(load.getWatch().getBlood().getSbp() + "/" + load.getWatch().getBlood().getDbp());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -65,8 +75,13 @@ public class BloodPressureActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(BloodPressureActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        String phoneNo = load.getWatch().getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(BloodPressureActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(BloodPressureActivity.this, MainActivity.class);

@@ -16,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText editSettHeight;
     EditText editSettAge;
     EditText editSettName;
+    EditText editSettPhone;
     TextView chargeText, textSettAge, textSettHeight;
     CircleImageView profileImage;
     Watch watch;
@@ -84,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
         editSettHeight = findViewById(R.id.editSettHeight);
         editSettAge = findViewById(R.id.editSettAge);
         editSettName = findViewById(R.id.editSettName);
+        editSettPhone = findViewById(R.id.editSettPhone);
         profileImage = findViewById(R.id.profile_image);
         textSettAge = findViewById(R.id.textSettAge);
         textSettHeight = findViewById(R.id.textSettHeight);
@@ -91,17 +94,21 @@ public class SettingsActivity extends AppCompatActivity {
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
         watch = load.getWatch();
-            editSettAge.setText(watch.getOwnerBirthday());
+        try{
+            editSettAge.setText(watch.getOwnerBirthday());//ошибка
             editSettSex.setText(watch.getOwnerGender());
             editSettName.setText(watch.getName());
             editSettHeight.setText(String.valueOf( watch.getHeight()));
             editSettWeight.setText(String.valueOf(watch.getWeight()));
             editSettImei.setText(watch.getImei());
+            editSettPhone.setText(watch.getDeviceMobileNo());
             textSettAge.setText(watch.getOwnerBirthday() + " years");
             textSettHeight.setText(watch.getHeight() + " sm, " + watch.getWeight() + " kg");
             if(!load.getImagePath().contains("©"))
                 profileImage.setImageBitmap(BitmapFactory.decodeFile(load.getImagePath()));
-        //}
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +128,13 @@ public class SettingsActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(SettingsActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        String phoneNo = load.getWatch().getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(SettingsActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(SettingsActivity.this, MainActivity.class);
@@ -146,6 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
                 watch.setWeight(Integer.valueOf(weight));
                 watch.setOwnerBirthday(age);
                 watch.setName(editSettName.getText().toString());
+                watch.setDeviceMobileNo(editSettPhone.getText().toString());
                 watch.setImei(imei);
                 load.setWatch(watch);
                 api.updateWatch();

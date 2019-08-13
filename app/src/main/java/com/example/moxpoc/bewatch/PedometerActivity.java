@@ -4,19 +4,26 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PedometerActivity extends AppCompatActivity {
 
     ProgressBar pedometerProgress;
-    TextView totatlSteps;
+    TextView totatlSteps, chargeText;
     PreferencesLoad load;
+    String goalSteps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +46,16 @@ public class PedometerActivity extends AppCompatActivity {
         load = new PreferencesLoad(getApplicationContext());
         pedometerProgress = findViewById(R.id.progressBarPedometrPedometer);
         totatlSteps = findViewById(R.id.textTotalGoalSteps);
+        goalSteps = load.getGoalSteps();
         try {
-            pedometerProgress.setProgress(load.getWatch().getBeatHeart().getPedometer());
+            Float percent = (float)0;
+            try{
+                percent = (float) ((load.getWatch().getBeatHeart().getPedometer() * 100) / Integer.parseInt(goalSteps));
+            }catch (ArithmeticException e){
+                e.printStackTrace();
+            }
+
+            pedometerProgress.setProgress(Math.round(percent));
             totatlSteps.setText(String.valueOf(load.getWatch().getBeatHeart().getPedometer()));
         }catch (NullPointerException e){
             e.printStackTrace();
@@ -61,8 +76,13 @@ public class PedometerActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(PedometerActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        String phoneNo = load.getWatch().getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(PedometerActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(PedometerActivity.this, MainActivity.class);
@@ -78,6 +98,13 @@ public class PedometerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
         final MenuItem item = menu.findItem(R.id.watchChargeItem);
+        FrameLayout rootView = (FrameLayout)item.getActionView();
+        chargeText = (TextView)rootView.findViewById(R.id.watchChargeText);
+        try {
+            chargeText.setText((load.getWatch().getBeatHeart().getBattery()) + "%");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         return true;
     }
 }

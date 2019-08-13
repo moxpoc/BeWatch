@@ -1,6 +1,7 @@
 package com.example.moxpoc.bewatch;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 
@@ -16,11 +17,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,12 +53,14 @@ public class MainActivity extends AppCompatActivity {
     TextView  pedometerText, pulseText, chargeText;
     ProgressBar pedometerProgress, pulseProgress;
     CircleImageView profileImage;
-
+    Watch watch;
     ApiImpl api;
     PreferencesLoad load;
 
     public String imei = "00000000000000";
     String goalSteps;
+
+    private final int PERMISSIONS_REQEST_STRORAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +87,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQEST_STRORAGE);
+        }
+
 
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
         api.getWatch();
-        Watch watch = load.getWatch();
+        watch = load.getWatch();
         goalSteps = load.getGoalSteps();
 
         if(!load.getImagePath().contains("©"))
@@ -100,8 +112,15 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.call_item:
-                        Intent intentS = new Intent(MainActivity.this, VoiceChatActivity.class);
-                        startActivity(intentS);
+                        /*Intent intentS = new Intent(MainActivity.this, VoiceChatActivity.class);
+                        startActivity(intentS);*/
+                        String phoneNo = watch.getDeviceMobileNo();
+                        if(!TextUtils.isEmpty(phoneNo)) {
+                            String dial = "tel:" + phoneNo;
+                            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                        }else {
+                            Toast.makeText(MainActivity.this, "Enter a phone number", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.myProfile_item:
                         Intent intentT = new Intent(MainActivity.this, MainActivity.class);
@@ -155,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //Обработка Перехода в MyGoalsActivity
+        //Обработка Перехода в LocationActivity
         CardView locationCard = findViewById(R.id.locationCard);
         locationCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +200,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, VoiceChatActivity.class);
-                startActivity(intent);
+                Toast.makeText(MainActivity.this, getApplicationContext().getString(R.string.soon),Toast.LENGTH_SHORT).show();
+                //startActivity(intent);
             }
         });
 

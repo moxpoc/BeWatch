@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">BeWatch</string>
-    <string name="b_watch">BE Watch</string>
+    <string name="app_name">SlWatch</string>
+    <string name="b_watch">Sl Watch</string>
     <string name="sign_in_google">Sign in With Google</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign Up</string>
@@ -18,6 +18,7 @@
     <string name="beatheart">Beat Heart</string>
     <string name="Steps">Steps</string>
     <string name="geolocation">Location</string>
+    <string name="updateLocation">Update Location</string>
     <string name="voicechat">Voice chat</string>
     <string name="bloodpressure">Blood pressure</string>
     <string name="pedometer">Pedometer</string>
@@ -27,5 +28,6 @@
     <string name="sleep">Sleep</string>
     <string name="progress">Progress</string>
     <string name="soon">Will be soon</string>
+    <string name="updateData">Update Data</string>
     <string name="url">http://159.93.167.209:8080</string>
 </resources>
