@@ -29,5 +29,17 @@
     <string name="progress">Progress</string>
     <string name="soon">Will be soon</string>
     <string name="updateData">Update Data</string>
+    <string name="saveSettings">Save Settings</string>
+    <string name="saveSucces">Settings have been saved</string>
+    <string name="watchName">Watch name</string>
+    <string name="imei">Imei</string>
+    <string name="sex">Sex</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="age">Age</string>
+    <string name="PhoneNimber">Watch phone number</string>
+    <string name="warningImei">IMEI is wrong</string>
+    <string name="kcal">Kcal</string>
+    <string name="hour">Hour</string>
     <string name="url">http://159.93.167.209:8080</string>
 </resources>

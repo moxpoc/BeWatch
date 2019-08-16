@@ -2,7 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/gradient"/>
 
-    <item>
+    <item
+        android:height="20px"
+        android:width="20px"
+        android:gravity="center">
 
         <bitmap
             android:src="@drawable/high_sl_ico"

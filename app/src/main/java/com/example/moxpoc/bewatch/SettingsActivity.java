@@ -28,21 +28,9 @@ import android.widget.Toast;
 
 import com.example.moxpoc.bewatch.ModelAPI.Location;
 import com.example.moxpoc.bewatch.ModelAPI.Watch;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -94,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
         watch = load.getWatch();
-        try{
+
             editSettAge.setText(watch.getOwnerBirthday());//ошибка
             editSettSex.setText(watch.getOwnerGender());
             editSettName.setText(watch.getName());
@@ -102,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
             editSettWeight.setText(String.valueOf(watch.getWeight()));
             editSettImei.setText(watch.getImei());
             editSettPhone.setText(watch.getDeviceMobileNo());
+        try{
             textSettAge.setText(watch.getOwnerBirthday() + " years");
             textSettHeight.setText(watch.getHeight() + " sm, " + watch.getWeight() + " kg");
             if(!load.getImagePath().contains("©"))
@@ -153,14 +142,19 @@ public class SettingsActivity extends AppCompatActivity {
                 String weight = editSettWeight.getText().toString();
                 String height = editSettHeight.getText().toString();
                 String age = editSettAge.getText().toString();
-                watch.setOwnerGender(sex);
-                watch.setHeight(Integer.valueOf(height));
-                watch.setWeight(Integer.valueOf(weight));
-                watch.setOwnerBirthday(age);
-                watch.setName(editSettName.getText().toString());
-                watch.setDeviceMobileNo(editSettPhone.getText().toString());
-                watch.setImei(imei);
+                try {
+                    watch.setOwnerGender(sex);
+                    watch.setHeight(Integer.valueOf(height));
+                    watch.setWeight(Integer.valueOf(weight));
+                    watch.setOwnerBirthday(age);
+                    watch.setName(editSettName.getText().toString());
+                    watch.setDeviceMobileNo(editSettPhone.getText().toString());
+                    watch.setImei(imei);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
                 load.setWatch(watch);
+                Toast.makeText(getApplicationContext(), getString(R.string.saveSucces), Toast.LENGTH_SHORT).show();
                 api.updateWatch();
 
             }
@@ -217,7 +211,11 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         String imei = editSettImei.getText().toString();
-        watch.setImei(imei);
+        try {
+            watch.setImei(imei);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         load.setWatch(watch);
     }
 

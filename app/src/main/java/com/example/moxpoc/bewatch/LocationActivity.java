@@ -52,6 +52,7 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
     public double lng;
     public double lat;
+    com.example.moxpoc.bewatch.ModelAPI.Location location;
     TextView chargeText;
     PreferencesLoad load;
     ApiImpl api;
@@ -67,7 +68,7 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        Button getLocationBtn = findViewById(R.id.getLocation);
+        final Button getLocationBtn = findViewById(R.id.getLocation);
 
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
@@ -134,7 +135,11 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
         getLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                com.example.moxpoc.bewatch.ModelAPI.Location location = api.getLocation();
+                try {
+                    location = api.getLocation();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
                 myMap.clear();
                 try {
                     lat = Double.parseDouble(location.getLat());
@@ -142,8 +147,13 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
-                imei = location.getImei();
-                Toast.makeText(getApplicationContext(),"LATITUDE = " + lat + "LONGITUDE = " + lng, Toast.LENGTH_LONG).show();
+                try {
+                    imei = location.getImei();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.warningImei), Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(getApplicationContext(),"LATITUDE = " + lat + "LONGITUDE = " + lng, Toast.LENGTH_LONG).show();
                 CameraPosition googlePlex = CameraPosition.builder()
                         .target(new LatLng(lat,lng))
                         .zoom(15)
