@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/weight"
                     android:imeOptions="actionDone"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/colorUltramarin"
                     android:theme="@style/MyHintText" />
@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/height"
                     android:imeOptions="actionDone"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/colorUltramarin"
                     android:theme="@style/MyHintText" />
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/age"
                     android:imeOptions="actionDone"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/colorUltramarin"
                     android:theme="@style/MyHintText" />

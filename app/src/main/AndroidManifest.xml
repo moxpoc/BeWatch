@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.moxpoc.bewatch">
+    package="com.starlayt.moxpoc.slwatch">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity"
+        <activity android:name="com.starlayt.moxpoc.slwatch.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,26 +30,26 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyD1LEHl10VVjr2uNsSUcPuFeA8Ev1kgSA4" />
 
-        <activity android:name=".EventActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".CalendarActivity" />
-        <activity android:name=".OxygenActivity" />
-        <activity android:name=".BloodPressureActivity" />
-        <activity android:name=".LocationActivity" />
-        <activity android:name=".PedometerActivity" />
-        <activity android:name=".BeatHeartActivity" />
-        <activity android:name=".VoiceChatActivity" />
-        <activity android:name=".MyGoalsActivity" />
-        <activity android:name=".StatisticsActivity" />
-        <activity android:name=".RegistrationActivity">
+        <activity android:name="com.starlayt.moxpoc.slwatch.EventActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.SettingsActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.CalendarActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.OxygenActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.BloodPressureActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.LocationActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.PedometerActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.BeatHeartActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.VoiceChatActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.MyGoalsActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.StatisticsActivity" />
+        <activity android:name="com.starlayt.moxpoc.slwatch.RegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.GOTOREGISTRATIONACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartScreenActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.starlayt.moxpoc.slwatch.StartScreenActivity"></activity>
+        <activity android:name="com.starlayt.moxpoc.slwatch.MainActivity">
 
         </activity>
     </application>
