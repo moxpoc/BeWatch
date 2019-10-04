@@ -7,7 +7,7 @@
     <string name="cant_login">Не можете войти в аккаунт?</string>
     <string name="alreadyAcc">Уже имеете аккаунт?</string>
     <string name="registration">Зарегистрироваться</string>
-    <string name="regName">Имя</string>
+    <string name="regLogin">Логин</string>
     <string name="regPass">Пароль</string>
     <string name="regEmail">E-mail</string>
     <string name="myProfile">Мой профиль</string>

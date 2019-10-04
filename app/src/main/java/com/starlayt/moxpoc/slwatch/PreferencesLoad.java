@@ -22,6 +22,10 @@ public class PreferencesLoad {
     public static final String APP_PREFERENCES_GOAL_DREAM = "goaldream";
     public static final String APP_PREFERENCES_GOAL_ACTIVITY = "goalactivity";
     public static final String APP_PREFERENCES_IMAGE_PATH = "image";
+
+    public static final String APP_PREFERENCES_LOGIN = "login";
+    public static final String APP_PREFERENCES_PASSWORD = "password";
+    public static final String APP_PREFERENCES_TOKEN = "token";
     private SharedPreferences watchSettings;
     private static Watch watch;
     private ObjectMapper mapper = new ObjectMapper();
@@ -29,6 +33,60 @@ public class PreferencesLoad {
     public PreferencesLoad(Context context){
         watchSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         watch = new Watch();
+    }
+
+    public String getLogin(){
+        if(watchSettings.contains(APP_PREFERENCES_LOGIN)){
+            return watchSettings.getString(APP_PREFERENCES_LOGIN,"");
+        }
+        else {
+            return null;
+        }
+    }
+
+    public void setLogin(String login){
+        SharedPreferences.Editor editor = watchSettings.edit();
+        editor.putString(APP_PREFERENCES_LOGIN, login);
+        editor.apply();
+    }
+
+    public String getPassword(){
+        if(watchSettings.contains(APP_PREFERENCES_PASSWORD)){
+            return watchSettings.getString(APP_PREFERENCES_PASSWORD,"");
+        }
+        else {
+            return null;
+        }
+    }
+
+    public void setPassword(String password){
+        SharedPreferences.Editor editor = watchSettings.edit();
+        editor.putString(APP_PREFERENCES_PASSWORD, password);
+        editor.apply();
+    }
+
+    public String getToken(){
+        if(watchSettings.contains(APP_PREFERENCES_TOKEN)){
+            return watchSettings.getString(APP_PREFERENCES_TOKEN,"");
+        }
+        else {
+            return null;
+        }
+    }
+
+    public String getBearer(){
+        if(watchSettings.contains(APP_PREFERENCES_TOKEN)){
+            return "Bearer_" + watchSettings.getString(APP_PREFERENCES_TOKEN,"");
+        }
+        else {
+            return "Bearer_";
+        }
+    }
+
+    public void setToken(String token){
+        SharedPreferences.Editor editor = watchSettings.edit();
+        editor.putString(APP_PREFERENCES_TOKEN, token);
+        editor.apply();
     }
 
     public String getGoalSteps(){

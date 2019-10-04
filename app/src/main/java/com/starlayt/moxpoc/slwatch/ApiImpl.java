@@ -2,9 +2,14 @@ package com.starlayt.moxpoc.slwatch;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.starlayt.moxpoc.slwatch.ModelAPI.Blood;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Location;
+import com.starlayt.moxpoc.slwatch.ModelAPI.LoginRequest;
+import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationRequest;
+import com.starlayt.moxpoc.slwatch.ModelAPI.ResetRequest;
+import com.starlayt.moxpoc.slwatch.ModelAPI.TokenResponse;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Watch;
 
 import retrofit2.Call;
@@ -35,8 +40,54 @@ public class ApiImpl {
         }
     }
 
+
+    public void auth(LoginRequest loginRequest){
+        Call<TokenResponse> auth = beWatchAPI.auth(loginRequest);
+        auth.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                TokenResponse tokenResponse = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                Log.i("___SOME_PROBLEMS___", t.getMessage());
+            }
+        });
+    }
+
+    public void registration(RegistrationRequest registrationRequest){
+        Call<String> registration = beWatchAPI.registration(registrationRequest);
+        registration.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("___SOME_PROBLEMS___", t.getMessage());
+            }
+        });
+    }
+
+    public void reset(ResetRequest resetRequest){
+        Call<String> reset = beWatchAPI.reset(resetRequest);
+        reset.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(response.code());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.i("___SOME_PROBLEMS___", t.getMessage());
+            }
+        });
+    }
+
     public void getWatch(){
-        Call<Watch> getWatch = beWatchAPI.getWatch(imei);
+        Call<Watch> getWatch = beWatchAPI.getWatch(imei, load.getBearer());
         getWatch.enqueue(new Callback<Watch>() {
             @Override
             public void onResponse(Call<Watch> call, Response<Watch> response) {
@@ -55,7 +106,7 @@ public class ApiImpl {
 
 
     public void updateWatch(){
-        Call<Watch> updateWatch = beWatchAPI.updateWatch(load.getWatch());
+        Call<Watch> updateWatch = beWatchAPI.updateWatch(load.getWatch(), load.getBearer());
         updateWatch.clone().enqueue(new Callback<Watch>() {
             @Override
             public void onResponse(Call<Watch> call, Response<Watch> response) {
@@ -70,7 +121,7 @@ public class ApiImpl {
     }
 
     public Location getLocation(){
-        Call<Location> getLocation =  beWatchAPI.getLocation(imei);
+        Call<Location> getLocation =  beWatchAPI.getLocation(imei, load.getBearer());
 
         getLocation.enqueue(new Callback<Location>() {
             @Override
@@ -88,7 +139,7 @@ public class ApiImpl {
     }
 
     public Blood getBlood(){
-        Call<Blood> getBlood = beWatchAPI.getBlood(imei);
+        Call<Blood> getBlood = beWatchAPI.getBlood(imei, load.getBearer());
         getBlood.enqueue(new Callback<Blood>() {
             @Override
             public void onResponse(Call<Blood> call, Response<Blood> response) {
