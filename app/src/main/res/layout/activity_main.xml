@@ -88,7 +88,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text="72"
+        android:text="0"
         android:textAlignment="center"
         android:textColor="@color/colorPink"
         android:textSize="16sp"
@@ -144,9 +144,13 @@
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBarHeartRate">
 
 
@@ -175,8 +179,8 @@
                 android:layout_height="99dp"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
@@ -216,8 +220,8 @@
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
@@ -256,8 +260,8 @@
                 android:layout_row="0"
                 android:layout_column="2"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
@@ -296,8 +300,8 @@
                 android:layout_row="0"
                 android:layout_column="3"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">

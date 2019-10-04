@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:textColor="@color/colorUltramarin"
-                android:hint="Watch name"/>
+                android:hint="@string/watchName"/>
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:layout_margin="8dp"
@@ -83,200 +83,163 @@
             android:text="166 sm, 66 kg"/>
     </LinearLayout>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editSettLayout"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:elevation="14dp"
-        app:hintTextAppearance="@style/MyHintText"
+    <ScrollView
+        android:id="@+id/settScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:focusableInTouchMode="false"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/savePreferencesBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linSettInfo">
 
-        <EditText
-            android:id="@+id/editSettImei"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:hint="IMEI"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:textColor="@color/colorUltramarin"
-            android:theme="@style/MyHintText" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editSettSexLayout"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:elevation="14dp"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editSettLayout"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:elevation="14dp"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editSettSex"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:hint="Sex"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:textColor="@color/colorUltramarin"
-            android:theme="@style/MyHintText" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/editSettImei"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/imei"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:textColor="@color/colorUltramarin"
+                    android:theme="@style/MyHintText" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!--<EditText
-        android:id="@+id/editSettImei"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:text="Set up IMEI"
-        android:textColor="@color/colorUltramarin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linSettInfo" />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editSettSexLayout"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:elevation="14dp"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editSettLayout">
 
-        <!--<EditText
-        android:id="@+id/editSettSex"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Set up sex"
-        android:textColor="@color/colorUltramarin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettLayout" />-->
+                <EditText
+                    android:id="@+id/editSettSex"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sex"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:textColor="@color/colorUltramarin"
+                    android:theme="@style/MyHintText" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editSettWeightLayout"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:elevation="14dp"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettSexLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editSettWeightLayout"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:elevation="14dp"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editSettSexLayout">
 
-        <EditText
-            android:id="@+id/editSettWeight"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:hint="Weight"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:textColor="@color/colorUltramarin"
-            android:theme="@style/MyHintText" />
-    </com.google.android.material.textfield.TextInputLayout>
-        <!--<EditText
-        android:id="@+id/editSettWeight"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Set up weight"
-        android:textColor="@color/colorUltramarin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettSex" />-->
+                <EditText
+                    android:id="@+id/editSettWeight"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/weight"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/colorUltramarin"
+                    android:theme="@style/MyHintText" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editSettHeightLayout"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:elevation="14dp"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettWeightLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editSettHeightLayout"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:elevation="14dp"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editSettWeightLayout">
 
-        <EditText
-            android:id="@+id/editSettHeight"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:hint="Height"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:textColor="@color/colorUltramarin"
-            android:theme="@style/MyHintText" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/editSettHeight"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/height"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/colorUltramarin"
+                    android:theme="@style/MyHintText" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!--
-    <EditText
-        android:id="@+id/editSettHeight"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Set up height"
-        android:textColor="@color/colorUltramarin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettWeight" />
--->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editSettAgeLayout"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:elevation="14dp"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editSettHeightLayout">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editSettAgeLayout"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:elevation="14dp"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettHeightLayout">
+                <EditText
+                    android:id="@+id/editSettAge"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/age"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/colorUltramarin"
+                    android:theme="@style/MyHintText" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editSettAge"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:hint="Age"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:textColor="@color/colorUltramarin"
-            android:theme="@style/MyHintText" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editSettPhoneLayout"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:elevation="14dp"
+                app:hintTextAppearance="@style/MyHintText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editSettAgeLayout">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editSettPhoneLayout"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:elevation="14dp"
-        app:hintTextAppearance="@style/MyHintText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettAgeLayout">
+                <EditText
+                    android:id="@+id/editSettPhone"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/PhoneNimber"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/colorUltramarin"
+                    android:theme="@style/MyHintText" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/editSettPhone"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:hint="Phone number"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textColor="@color/colorUltramarin"
-            android:theme="@style/MyHintText" />
-    </com.google.android.material.textfield.TextInputLayout>
-        <!--<EditText
-        android:id="@+id/editSettAge"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Set up age"
-        android:inputType="date"
-        android:textColor="@color/colorUltramarin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettHeight" />-->
+
+    </ScrollView>
 
 
     <Button
@@ -284,15 +247,13 @@
         android:layout_width="124dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/two_five_roundedbutton"
-        android:text="Save Settings"
+        android:text="@string/saveSettings"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSettPhoneLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
