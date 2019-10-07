@@ -24,7 +24,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/editTextRegName"
+        android:id="@+id/editTextLogin"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -32,7 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="256dp"
         android:backgroundTint="@color/colorUltramarin"
-        android:text="@string/regLogin"
+        android:hint="@string/regLogin"
         android:inputType="textCapWords"
         android:textColor="#CC000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/regToolbar" />
 
     <EditText
-        android:id="@+id/editTextRegPass"
+        android:id="@+id/editTextLogPass"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -49,13 +49,13 @@
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorUltramarin"
         android:inputType="textCapWords"
-        android:text="@string/regPass"
+        android:hint="@string/regPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRegName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
 
     <Button
-        android:id="@+id/sign_inRegBtn"
+        android:id="@+id/sign_inLogBtn"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -68,6 +68,6 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRegPass" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogPass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

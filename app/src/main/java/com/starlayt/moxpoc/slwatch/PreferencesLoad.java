@@ -2,6 +2,7 @@ package com.starlayt.moxpoc.slwatch;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Base64;
 
 import com.starlayt.moxpoc.slwatch.ModelAPI.BeatHeart;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Blood;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class PreferencesLoad {
 
@@ -80,6 +82,18 @@ public class PreferencesLoad {
         }
         else {
             return "Bearer_";
+        }
+    }
+
+    public long getExpiration(){
+        if(watchSettings.contains(APP_PREFERENCES_TOKEN)){
+            String [] split = watchSettings.getString(APP_PREFERENCES_TOKEN,"").split("\\.");
+            byte [] decodedBytes = Base64.decode(split[1], Base64.URL_SAFE);
+            String decodedToken = new String(decodedBytes, StandardCharsets.UTF_8);
+            int indexExp = decodedToken.indexOf("exp");
+            return Long.parseLong(decodedToken.substring((indexExp+5), (indexExp+15)));
+        }else {
+            return 0;
         }
     }
 

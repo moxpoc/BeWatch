@@ -31,7 +31,7 @@
         android:layout_marginTop="152dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorUltramarin"
-        android:text="@string/regLogin"
+        android:hint="@string/regLogin"
         android:textColor="#CC000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorUltramarin"
-        android:text="@string/regPass"
+        android:hint="@string/regPass"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegName" />
@@ -58,7 +59,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorUltramarin"
-        android:text="@string/regEmail"
+        android:hint="@string/regEmail"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegPass" />

@@ -4,6 +4,7 @@ import com.starlayt.moxpoc.slwatch.ModelAPI.Blood;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Location;
 import com.starlayt.moxpoc.slwatch.ModelAPI.LoginRequest;
 import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationRequest;
+import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationResponse;
 import com.starlayt.moxpoc.slwatch.ModelAPI.ResetRequest;
 import com.starlayt.moxpoc.slwatch.ModelAPI.TokenResponse;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Watch;
@@ -25,7 +26,7 @@ public interface BeWatchAPI {
 
     @Headers("Content-Type: application/json")
     @POST("/registration")
-    Call<String> registration(@Body RegistrationRequest registrationRequest);
+    Call<RegistrationResponse> registration(@Body RegistrationRequest registrationRequest);
 
     @Headers("Content-Type: application/json")
     @POST("/auth/reset")

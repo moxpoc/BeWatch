@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
-        api.getWatch();
+        api.getWatchByClient();
         watch = load.getWatch();
         goalSteps = load.getGoalSteps();
 

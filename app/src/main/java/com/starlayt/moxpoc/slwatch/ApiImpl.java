@@ -8,6 +8,7 @@ import com.starlayt.moxpoc.slwatch.ModelAPI.Blood;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Location;
 import com.starlayt.moxpoc.slwatch.ModelAPI.LoginRequest;
 import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationRequest;
+import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationResponse;
 import com.starlayt.moxpoc.slwatch.ModelAPI.ResetRequest;
 import com.starlayt.moxpoc.slwatch.ModelAPI.TokenResponse;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Watch;
@@ -24,6 +25,7 @@ public class ApiImpl {
     private PreferencesLoad load;
     private BeWatchAPI beWatchAPI;
     private String imei;
+    private boolean status;
 
     public ApiImpl(Context context){
         retrofit = new Retrofit.Builder()
@@ -47,25 +49,45 @@ public class ApiImpl {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 TokenResponse tokenResponse = response.body();
+                try{
+                    load.setToken(tokenResponse.getToken());
+
+
+                }catch (NullPointerException e ){
+                    e.printStackTrace();
+                }
+                status = true;
             }
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 Log.i("___SOME_PROBLEMS___", t.getMessage());
+                status = false;
             }
         });
     }
 
-    public void registration(RegistrationRequest registrationRequest){
-        Call<String> registration = beWatchAPI.registration(registrationRequest);
-        registration.enqueue(new Callback<String>() {
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void registration(final RegistrationRequest registrationRequest){
+        Call<RegistrationResponse> registration = beWatchAPI.registration(registrationRequest);
+        registration.enqueue(new Callback<RegistrationResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
                 System.out.println(response.body());
+                RegistrationResponse registrationResponse = response.body();
+                load.setPassword(registrationRequest.getPassword());
+                try {
+                    load.setLogin(registrationResponse.getLogin());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<RegistrationResponse> call, Throwable t) {
                 Log.i("___SOME_PROBLEMS___", t.getMessage());
             }
         });
@@ -94,6 +116,22 @@ public class ApiImpl {
                 Watch watch =  response.body();
                 load.setWatch(watch);
 
+            }
+
+            @Override
+            public void onFailure(Call<Watch> call, Throwable t) {
+                Log.i("__GET_WATCH_FAIL__", t.getMessage());
+            }
+        });
+    }
+
+    public void getWatchByClient(){
+        Call<Watch> getWatchByClient = beWatchAPI.getWatchByClient(load.getBearer());
+        getWatchByClient.enqueue(new Callback<Watch>() {
+            @Override
+            public void onResponse(Call<Watch> call, Response<Watch> response) {
+                Watch watch =  response.body();
+                load.setWatch(watch);
             }
 
             @Override
