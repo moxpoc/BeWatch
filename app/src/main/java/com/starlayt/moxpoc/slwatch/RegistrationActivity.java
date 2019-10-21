@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationRequest;
 
@@ -36,9 +37,18 @@ public class RegistrationActivity extends AppCompatActivity {
                 String login = regName.getText().toString();
                 String password = regPass.getText().toString();
                 String email = regEmail.getText().toString();
-                if( !login.equals("")&&!password.equals("")&&!email.equals("")){
+                if(password.length()<8){
+                    Toast.makeText(RegistrationActivity.this, getString(R.string.invalidPwlength), Toast.LENGTH_SHORT).show();
+                    if(!email.contains("@")){
+                        Toast.makeText(RegistrationActivity.this, getString(R.string.invalidEmail), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                if( !login.equals("")&& !password.equals("")&& !email.equals("")&& password.length()>=8 && email.contains("@")){
                     RegistrationRequest registrationRequest = new RegistrationRequest(login, password, email);
                     api.registration(registrationRequest);
+
+                    Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
+                    startActivity(intent);
                 }
             }
         });

@@ -25,7 +25,7 @@ public class ApiImpl {
     private PreferencesLoad load;
     private BeWatchAPI beWatchAPI;
     private String imei;
-    private boolean status;
+    private int status;
 
     public ApiImpl(Context context){
         retrofit = new Retrofit.Builder()
@@ -43,47 +43,48 @@ public class ApiImpl {
     }
 
 
-    public void auth(LoginRequest loginRequest){
+    public int auth(LoginRequest loginRequest){
         Call<TokenResponse> auth = beWatchAPI.auth(loginRequest);
         auth.enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                TokenResponse tokenResponse = response.body();
-                try{
+                if(response.isSuccessful()) {
+                    TokenResponse tokenResponse = response.body();
                     load.setToken(tokenResponse.getToken());
-
-
-                }catch (NullPointerException e ){
-                    e.printStackTrace();
+                    status = response.code();
+                }else {
+                    status = response.code();
                 }
-                status = true;
             }
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 Log.i("___SOME_PROBLEMS___", t.getMessage());
-                status = false;
             }
         });
-    }
-
-    public boolean isStatus() {
         return status;
     }
 
-    public void registration(final RegistrationRequest registrationRequest){
+
+    public int registration(final RegistrationRequest registrationRequest){
         Call<RegistrationResponse> registration = beWatchAPI.registration(registrationRequest);
         registration.enqueue(new Callback<RegistrationResponse>() {
             @Override
             public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                System.out.println(response.body());
-                RegistrationResponse registrationResponse = response.body();
-                load.setPassword(registrationRequest.getPassword());
-                try {
-                    load.setLogin(registrationResponse.getLogin());
-                }catch (NullPointerException e){
-                    e.printStackTrace();
+                if(response.isSuccessful()) {
+                    System.out.println(response.body());
+                    RegistrationResponse registrationResponse = response.body();
+                    load.setPassword(registrationRequest.getPassword());
+                    try {
+                        load.setLogin(registrationResponse.getLogin());
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    status = response.code();
+                }else {
+                    status = response.code();
                 }
+
             }
 
             @Override
@@ -91,14 +92,16 @@ public class ApiImpl {
                 Log.i("___SOME_PROBLEMS___", t.getMessage());
             }
         });
+        return status;
     }
 
-    public void reset(ResetRequest resetRequest){
+    public int reset(ResetRequest resetRequest){
         Call<String> reset = beWatchAPI.reset(resetRequest);
         reset.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(response.code());
+                status = response.code();
             }
 
             @Override
@@ -106,15 +109,21 @@ public class ApiImpl {
                 Log.i("___SOME_PROBLEMS___", t.getMessage());
             }
         });
+        return status;
     }
 
-    public void getWatch(){
+    public int getWatch(){
         Call<Watch> getWatch = beWatchAPI.getWatch(imei, load.getBearer());
         getWatch.enqueue(new Callback<Watch>() {
             @Override
             public void onResponse(Call<Watch> call, Response<Watch> response) {
-                Watch watch =  response.body();
-                load.setWatch(watch);
+                if(response.isSuccessful()) {
+                    Watch watch = response.body();
+                    load.setWatch(watch);
+                    status = response.code();
+                }else {
+                    status = response.code();
+                }
 
             }
 
@@ -123,15 +132,21 @@ public class ApiImpl {
                 Log.i("__GET_WATCH_FAIL__", t.getMessage());
             }
         });
+        return status;
     }
 
-    public void getWatchByClient(){
+    public int getWatchByClient(){
         Call<Watch> getWatchByClient = beWatchAPI.getWatchByClient(load.getBearer());
         getWatchByClient.enqueue(new Callback<Watch>() {
             @Override
             public void onResponse(Call<Watch> call, Response<Watch> response) {
-                Watch watch =  response.body();
-                load.setWatch(watch);
+                if(response.isSuccessful()) {
+                    Watch watch = response.body();
+                    load.setWatch(watch);
+                    status = response.code();
+                }else {
+                    status =  response.code();
+                }
             }
 
             @Override
@@ -139,16 +154,17 @@ public class ApiImpl {
                 Log.i("__GET_WATCH_FAIL__", t.getMessage());
             }
         });
+        return status;
     }
 
 
 
-    public void updateWatch(){
+    public int updateWatch(){
         Call<Watch> updateWatch = beWatchAPI.updateWatch(load.getWatch(), load.getBearer());
         updateWatch.clone().enqueue(new Callback<Watch>() {
             @Override
             public void onResponse(Call<Watch> call, Response<Watch> response) {
-
+                status = response.code();
             }
 
             @Override
@@ -156,6 +172,7 @@ public class ApiImpl {
 
             }
         });
+        return status;
     }
 
     public Location getLocation(){

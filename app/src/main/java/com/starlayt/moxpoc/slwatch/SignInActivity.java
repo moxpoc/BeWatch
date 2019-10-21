@@ -1,6 +1,7 @@
 package com.starlayt.moxpoc.slwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,9 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        Toolbar profileToolbar = findViewById(R.id.regToolbar);
+        profileToolbar.setTitle("");
+        setSupportActionBar(profileToolbar);
 
         final EditText loginText = findViewById(R.id.editTextLogin);
         final EditText passwordText = findViewById(R.id.editTextLogPass);
@@ -38,6 +42,14 @@ public class SignInActivity extends AppCompatActivity {
 
         final ApiImpl api = new ApiImpl(getApplicationContext());
         final PreferencesLoad load = new PreferencesLoad(getApplicationContext());
+
+        profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.url))
@@ -57,18 +69,18 @@ public class SignInActivity extends AppCompatActivity {
                     auth.enqueue(new Callback<TokenResponse>() {
                         @Override
                         public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                            TokenResponse tokenResponse = response.body();
-                            try{
+                            if (response.isSuccessful()) {
+                                TokenResponse tokenResponse = response.body();
                                 load.setToken(tokenResponse.getToken());
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                startActivity(intent);
 
+                                load.setLogin(login);
+                                load.setPassword(password);
 
-                            }catch (NullPointerException e ){
-                                e.printStackTrace();
+                            } else {
+                                Toast.makeText(SignInActivity.this, response.code() + " Wrong login or password", Toast.LENGTH_SHORT).show();
                             }
-                            load.setLogin(login);
-                            load.setPassword(password);
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
                         }
 
                         @Override
@@ -77,6 +89,9 @@ public class SignInActivity extends AppCompatActivity {
                             Toast.makeText(SignInActivity.this, "Wrong login or password", Toast.LENGTH_SHORT).show();
                         }
                     });
+
+
+
 
 
                     /*api.auth(loginRequest);

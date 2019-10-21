@@ -73,14 +73,12 @@
             android:layout_margin="8dp"
             android:id="@+id/textSettAge"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99 years"/>
+            android:layout_height="wrap_content"/>
         <TextView
             android:layout_marginLeft="8dp"
             android:id="@+id/textSettHeight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="166 sm, 66 kg"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <ScrollView
