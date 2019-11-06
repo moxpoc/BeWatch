@@ -79,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
         api = new ApiImpl(getApplicationContext());
         watch = load.getWatch();
 
-            editSettAge.setText(watch.getOwnerBirthday());//ошибка
+            editSettAge.setText(watch.getOwnerBirthday());//ошибка?
             editSettSex.setText(watch.getOwnerGender());
             editSettName.setText(watch.getName());
             editSettHeight.setText(String.valueOf( watch.getHeight()));
@@ -186,7 +186,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
         }*/
-        if (requestCode == pick_image && resultCode == RESULT_OK && null != data) {
+        if (requestCode == pick_image && resultCode == RESULT_OK && data != null ) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
