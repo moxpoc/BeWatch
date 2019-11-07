@@ -3,6 +3,7 @@ package com.starlayt.moxpoc.slwatch;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.starlayt.moxpoc.slwatch.ModelAPI.LoginRequest;
 import com.starlayt.moxpoc.slwatch.ModelAPI.TokenResponse;
+import com.starlayt.moxpoc.slwatch.ModelAPI.Watch;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +27,8 @@ public class SignInActivity extends AppCompatActivity {
 
     private Retrofit retrofit;
     private BeWatchAPI beWatchAPI;
+    boolean flag = false;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class SignInActivity extends AppCompatActivity {
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
 
+
         final EditText loginText = findViewById(R.id.editTextLogin);
         final EditText passwordText = findViewById(R.id.editTextLogPass);
 
@@ -42,6 +47,9 @@ public class SignInActivity extends AppCompatActivity {
 
         final ApiImpl api = new ApiImpl(getApplicationContext());
         final PreferencesLoad load = new PreferencesLoad(getApplicationContext());
+
+        dialog = new ProgressDialog(this);
+
 
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,28 +65,57 @@ public class SignInActivity extends AppCompatActivity {
                 .build();
         beWatchAPI = retrofit.create(BeWatchAPI.class);
 
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     final String login = loginText.getText().toString();
                     final String password = passwordText.getText().toString();
-
+                    dialog.setIndeterminate(true);
+                    dialog.setTitle("Connecting to server");
+                    dialog.setMessage("Trying to get your data...");
+                    dialog.show();
                     LoginRequest loginRequest = new LoginRequest(login, password);
 
                     Call<TokenResponse> auth = beWatchAPI.auth(loginRequest);
                     auth.enqueue(new Callback<TokenResponse>() {
+
                         @Override
                         public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+
                             if (response.isSuccessful()) {
                                 TokenResponse tokenResponse = response.body();
                                 load.setToken(tokenResponse.getToken());
-                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                                startActivity(intent);
-
                                 load.setLogin(login);
                                 load.setPassword(password);
+                                Call<Watch> getWatchByClient = beWatchAPI.getWatchByClient(load.getBearer());
+                                getWatchByClient.enqueue(new Callback<Watch>() {
+                                    @Override
+                                    public void onResponse(Call<Watch> call, Response<Watch> response) {
+                                        if(response.isSuccessful()) {
+                                            Watch watch = response.body();
+                                            load.setWatch(watch);
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }else {
+                                            Toast.makeText(SignInActivity.this, "Cant get info of watches", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
 
+                                    @Override
+                                    public void onFailure(Call<Watch> call, Throwable t) {
+                                        Log.i("__GET_WATCH_FAIL__", t.getMessage());
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
                             } else {
+                                dialog.dismiss();
                                 Toast.makeText(SignInActivity.this, response.code() + " Wrong login or password", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -86,12 +123,22 @@ public class SignInActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<TokenResponse> call, Throwable t) {
                             Log.i("___SOME_PROBLEMS___", t.getMessage());
-                            Toast.makeText(SignInActivity.this, "Wrong login or password", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            Toast.makeText(SignInActivity.this, " Wrong login or password", Toast.LENGTH_SHORT).show();
                         }
                     });
 
 
 
+
+
+
+/*
+                    if(flag = true) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }*/
 
 
                     /*api.auth(loginRequest);

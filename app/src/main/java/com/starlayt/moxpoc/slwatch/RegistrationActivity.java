@@ -4,14 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationRequest;
+import com.starlayt.moxpoc.slwatch.ModelAPI.RegistrationResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    private Retrofit retrofit;
+    private BeWatchAPI beWatchAPI;
+    PreferencesLoad load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +39,13 @@ public class RegistrationActivity extends AppCompatActivity {
         Button signupBtn = findViewById(R.id.sign_upRegBtn);
         Button signinBtn = findViewById(R.id.sign_inRegBtn);
 
-        final ApiImpl api =  new ApiImpl(getApplicationContext());
-        PreferencesLoad load = new PreferencesLoad(getApplicationContext());
+        load = new PreferencesLoad(getApplicationContext());
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.url))
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+        beWatchAPI = retrofit.create(BeWatchAPI.class);
 
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,11 +60,36 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                 }
                 if( !login.equals("")&& !password.equals("")&& !email.equals("")&& password.length()>=8 && email.contains("@")){
-                    RegistrationRequest registrationRequest = new RegistrationRequest(login, password, email);
-                    api.registration(registrationRequest);
+                    final RegistrationRequest registrationRequest = new RegistrationRequest(login, password, email);
+                    Call<RegistrationResponse> registration = beWatchAPI.registration(registrationRequest);
+                    registration.enqueue(new Callback<RegistrationResponse>() {
+                        @Override
+                        public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
+                            if(response.isSuccessful()) {
+                                System.out.println(response.body());
+                                RegistrationResponse registrationResponse = response.body();
+                                load.setPassword(registrationRequest.getPassword());
+                                try {
+                                    load.setLogin(registrationResponse.getLogin());
 
-                    Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
-                    startActivity(intent);
+                                } catch (NullPointerException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent intent = new Intent(RegistrationActivity.this, SignInActivity.class);
+                                startActivity(intent);
+                            }else {
+                                Toast.makeText(RegistrationActivity.this, response.code() + " User is exist", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<RegistrationResponse> call, Throwable t) {
+                            Log.i("___SOME_PROBLEMS___", t.getMessage());
+                        }
+                    });
+
+
                 }
             }
         });
