@@ -17,7 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SignInActivity"></activity>
+
+
+        <service
+            android:name=".Tools.MyFireBaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".KostilActivity"></activity>
+        <activity android:name=".SignInActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -31,6 +42,7 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyD1LEHl10VVjr2uNsSUcPuFeA8Ev1kgSA4" />
+
 
         <activity android:name=".EventActivity" />
         <activity android:name=".SettingsActivity" />

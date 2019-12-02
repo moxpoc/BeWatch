@@ -78,14 +78,13 @@ public class SettingsActivity extends AppCompatActivity {
         load = new PreferencesLoad(getApplicationContext());
         api = new ApiImpl(getApplicationContext());
         watch = load.getWatch();
-
-            editSettAge.setText(watch.getOwnerBirthday());//ошибка?
-            editSettSex.setText(watch.getOwnerGender());
-            editSettName.setText(watch.getName());
-            editSettHeight.setText(String.valueOf( watch.getHeight()));
-            editSettWeight.setText(String.valueOf(watch.getWeight()));
-            editSettImei.setText(watch.getImei());
-            editSettPhone.setText(watch.getDeviceMobileNo());
+        editSettAge.setText(watch.getOwnerBirthday());//ошибка?
+        editSettSex.setText(watch.getOwnerGender());
+        editSettName.setText(watch.getName());
+        editSettHeight.setText(String.valueOf( watch.getHeight()));
+        editSettWeight.setText(String.valueOf(watch.getWeight()));
+        editSettImei.setText(watch.getImei());
+        editSettPhone.setText(watch.getDeviceMobileNo());
         try{
             textSettAge.setText(watch.getOwnerBirthday() + " years");
             textSettHeight.setText(watch.getHeight() + " sm, " + watch.getWeight() + " kg");

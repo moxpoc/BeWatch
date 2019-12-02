@@ -44,4 +44,7 @@
     <string name="url">http://slwatch.uni-dubna.ru:8080</string>
     <string name="invalidPwlength">Пароль должен включать минимум 8 символов</string>
     <string name="invalidEmail">Email некорректен</string>
+    <string name="firstTime">Первый раз с нами?</string>
+    <string name="enterimei">Введите IMEI здесь</string>
+    <string name="continueLogin">Продолжить</string>
 </resources>

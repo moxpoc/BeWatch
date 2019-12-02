@@ -2,12 +2,23 @@ package com.starlayt.moxpoc.slwatch;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.starlayt.moxpoc.slwatch.ModelAPI.BeatHeart;
+import com.starlayt.moxpoc.slwatch.ModelAPI.Blood;
+import com.starlayt.moxpoc.slwatch.ModelAPI.Location;
 import com.starlayt.moxpoc.slwatch.ModelAPI.Watch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.PackageManager;
@@ -20,17 +31,27 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +62,11 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView profileImage;
     Watch watch;
     ApiImpl api;
+    BeWatchAPI beWatchAPI;
+    private Retrofit retrofit;
     PreferencesLoad load;
+    ProgressDialog pDialog;
+    int zero_watch;
 
     public String imei = "00000000000000";
     String goalSteps;
@@ -57,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         profileToolbar.setTitle("");
         setSupportActionBar(profileToolbar);
 
+        load = new PreferencesLoad(getApplicationContext());
+        watch = load.getWatch();
+
         pedometerText = findViewById(R.id.textViewPedometer);
         pulseText = findViewById(R.id.textViewHeartRate);
 
@@ -64,6 +92,26 @@ public class MainActivity extends AppCompatActivity {
 
         pedometerProgress = findViewById(R.id.progressBarPedometr);
         pulseProgress = findViewById(R.id.progressBarHeartRate);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("fuck", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        //String msg = getString(R.string.invalidEmail, token);
+                        Log.d("toast", token);
+                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         api = new ApiImpl(getApplicationContext());
         api.getWatchByClient();
 
-        load = new PreferencesLoad(getApplicationContext());
-        watch = load.getWatch();
+
         goalSteps = load.getGoalSteps();
 
         if(!load.getImagePath().contains("©"))
@@ -267,5 +315,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    public String toJson(Watch watch) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(watch);
+
     }
 }

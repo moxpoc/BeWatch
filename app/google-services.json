@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "913449070906",
+    "firebase_url": "https://bewatch-246807.firebaseio.com",
+    "project_id": "bewatch-246807",
+    "storage_bucket": "bewatch-246807.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913449070906:android:30f881f43e82838164e003",
+        "android_client_info": {
+          "package_name": "com.starlayt.slwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913449070906-oq3p38cgg8sahsudim9d8k39i6ktn4lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVnOTj8w78FEmo4t90fiW8fa8al3y1EHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913449070906-oq3p38cgg8sahsudim9d8k39i6ktn4lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

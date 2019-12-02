@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/firstTime"
+        android:padding="8dp"
+        android:textSize="15dp"
+        />
+    <EditText
+        android:id="@+id/et_imei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enterimei"
+        android:textSize="15dp"
+        android:layout_below="@id/dialog_title"
+        />
+    <Button
+        android:id="@+id/dialog_positive_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:background="@drawable/two_five_roundedbutton"
+        android:layout_below="@id/et_imei"
+        />
+    <Button
+        android:id="@+id/dialog_negative_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:layout_toLeftOf="@id/dialog_positive_btn"
+        android:padding="8dp"
+        android:background="@drawable/two_five_roundedbutton"
+        android:layout_marginRight="3dp"
+        android:layout_alignBaseline="@id/dialog_positive_btn"
+        />
+</RelativeLayout>

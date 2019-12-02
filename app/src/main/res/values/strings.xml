@@ -44,4 +44,7 @@
     <string name="url">http://slwatch.uni-dubna.ru:8080</string>
     <string name="invalidPwlength">Password must be longer than 8 characters</string>
     <string name="invalidEmail">Email is invalid</string>
+    <string name="firstTime">First time with us?</string>
+    <string name="enterimei">Enter IMEI here</string>
+    <string name="continueLogin">Continue</string>
 </resources>

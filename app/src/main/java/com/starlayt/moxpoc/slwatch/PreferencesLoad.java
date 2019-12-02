@@ -37,6 +37,21 @@ public class PreferencesLoad {
         watch = new Watch();
     }
 
+    public String getImei(){
+        if(watchSettings.contains(APP_PREFERENCES_IMEI)){
+            return watchSettings.getString(APP_PREFERENCES_IMEI,"");
+        }
+        else {
+            return "";
+        }
+    }
+
+    public void setImei(String imei){
+        SharedPreferences.Editor editor = watchSettings.edit();
+        editor.putString(APP_PREFERENCES_IMEI, imei);
+        editor.apply();
+    }
+
     public String getLogin(){
         if(watchSettings.contains(APP_PREFERENCES_LOGIN)){
             return watchSettings.getString(APP_PREFERENCES_LOGIN,"");

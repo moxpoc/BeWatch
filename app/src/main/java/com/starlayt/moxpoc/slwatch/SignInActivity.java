@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,11 @@ public class SignInActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private BeWatchAPI beWatchAPI;
     boolean flag = false;
+
+    public static final String APP_PREFERENCES = "watchsettings";
+    public static final String APP_PREFERENCES_IMEI = "imei";
+    private SharedPreferences watchSettings;
+    SharedPreferences.Editor editor;
     ProgressDialog dialog;
 
     @Override
@@ -49,7 +56,9 @@ public class SignInActivity extends AppCompatActivity {
         final PreferencesLoad load = new PreferencesLoad(getApplicationContext());
 
         dialog = new ProgressDialog(this);
+        watchSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
+        editor = watchSettings.edit();
 
         profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +105,16 @@ public class SignInActivity extends AppCompatActivity {
                                             Watch watch = response.body();
                                             load.setWatch(watch);
                                             dialog.dismiss();
+                                            editor.putString(APP_PREFERENCES_IMEI, watch.getImei());
+                                            editor.apply();
                                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(intent);
                                         }else {
                                             Toast.makeText(SignInActivity.this, "Cant get info of watches", Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
-                                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                            editor.putString(APP_PREFERENCES_IMEI, "");
+                                            editor.apply();
+                                            Intent intent = new Intent(SignInActivity.this, KostilActivity.class);
                                             startActivity(intent);
                                         }
                                     }
@@ -110,7 +123,10 @@ public class SignInActivity extends AppCompatActivity {
                                     public void onFailure(Call<Watch> call, Throwable t) {
                                         Log.i("__GET_WATCH_FAIL__", t.getMessage());
                                         dialog.dismiss();
-                                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                        editor.putString(APP_PREFERENCES_IMEI, "");
+                                        editor.apply();
+                                        Intent intent = new Intent(SignInActivity.this, KostilActivity.class);
+
                                         startActivity(intent);
                                     }
                                 });
@@ -127,36 +143,6 @@ public class SignInActivity extends AppCompatActivity {
                             Toast.makeText(SignInActivity.this, " Wrong login or password", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-
-
-
-
-
-/*
-                    if(flag = true) {
-                        dialog.dismiss();
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }*/
-
-
-                    /*api.auth(loginRequest);
-                    boolean status = api.isStatus();*/
-                  /*  if(status){
-                        load.setLogin(login);
-                        load.setPassword(password);
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }else {
-                        Toast.makeText(SignInActivity.this, "Wrong login or password", Toast.LENGTH_SHORT).show();
-                    }*/
-
-
-                /*} else {
-                    LoginRequest loginRequest = new LoginRequest(load.getLogin(), load.getPassword());
-                    api.auth(loginRequest);
-                }*/
             }
         });
     }
