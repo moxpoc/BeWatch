@@ -236,8 +236,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, VoiceChatActivity.class);
-                Toast.makeText(MainActivity.this, getApplicationContext().getString(R.string.soon),Toast.LENGTH_SHORT).show();
-                //startActivity(intent);
+                //Toast.makeText(MainActivity.this, getApplicationContext().getString(R.string.soon),Toast.LENGTH_SHORT).show();
+                startActivity(intent);
             }
         });
 
